@@ -11,7 +11,7 @@
             "mode": "auto",
             "program": "${fileDirname}",
             "env": {},
-            "args": ["6000"]
+            "args": ["8080"]
         }
     ]
 }
