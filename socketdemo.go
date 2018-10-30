@@ -10,12 +10,22 @@ import (
 	"net/url"
 	"os"
 	"os/signal"
-	"time"
 
+	"github.com/0110101001110011/blade2/src/game"
 	"github.com/gorilla/websocket"
 )
 
 var addr = flag.String("addr", "localhost:8080", "http service address")
+var data map[string]interface{}
+
+type StandardJSON struct {
+	Status  game.EStatus
+	Message string
+}
+
+type Instruction struct {
+	Instruction game.EInstruction
+}
 
 func main() {
 	flag.Parse()
@@ -33,48 +43,15 @@ func main() {
 	}
 	defer c.Close()
 
-	done := make(chan struct{})
-
-	go func() {
-		defer close(done)
-		for {
-			_, message, err := c.ReadMessage()
-			if err != nil {
-				log.Println("read:", err)
-				return
-			}
-			log.Printf("recv: %s", message)
-		}
-	}()
-
-	ticker := time.NewTicker(time.Second)
-	defer ticker.Stop()
-
 	for {
-		select {
-		case <-done:
-			return
-		case t := <-ticker.C:
-			err := c.WriteMessage(websocket.TextMessage, []byte(t.String()))
-			if err != nil {
-				log.Println("write:", err)
-				return
-			}
-		case <-interrupt:
-			log.Println("interrupt")
+		mt, message, err := c.ReadMessage()
 
-			// Cleanly close the connection by sending a close message and then
-			// waiting (with timeout) for the server to close the connection.
-			err := c.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""))
-			if err != nil {
-				log.Println("write close:", err)
-				return
-			}
-			select {
-			case <-done:
-			case <-time.After(time.Second):
-			}
-			return
+		if err != nil {
+			//log.Printf("Error: [%s]", err)
+		} else {
+			log.Printf("Received a message: [%d] %s", mt, message)
 		}
+
+		// time.Sleep(1 * time.Second)
 	}
 }
