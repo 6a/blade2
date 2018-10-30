@@ -1,7 +1,6 @@
 package matchmaking
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"time"
@@ -57,13 +56,7 @@ func (c *Client) run() {
 		for {
 			time.Sleep(HeartbeatPeriod)
 
-			js, err := json.Marshal(templates.Heartbeat{Uptime: time.Now().Unix() - birthTime})
-			if err != nil {
-				log.Println("Failed to marshal JSON object when attempting to alert client [c1] that a game was found")
-				c.sendMessage(templates.GenericError)
-			} else {
-				c.sendMessage(js)
-			}
+			c.sendMessage(templates.Make(templates.Heartbeat{Uptime: time.Now().Unix() - birthTime}))
 		}
 	}()
 }

@@ -8,7 +8,7 @@ type GameState struct {
 	Deck  [2][]Card
 }
 
-func NewGameState() GameState {
+func CreateGameState() GameState {
 	cardSets := [2][]Card{}
 	return GameState{0, [2]int{0, 0}, cardSets, cardSets, cardSets}
 }

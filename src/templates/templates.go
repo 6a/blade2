@@ -6,7 +6,7 @@ import (
 	"github.com/0110101001110011/blade2/src/game"
 )
 
-var GenericError, err = json.Marshal(StandardJSON{game.UnknownError, "Unhandled exception occured"})
+var GenericError = Make(StandardJSON{Status: game.UnknownError, Message: "Unhandled exception occured"})
 
 type StandardJSON struct {
 	Status  game.EStatus
@@ -14,9 +14,16 @@ type StandardJSON struct {
 }
 
 type Instruction struct {
-	Instruction game.EInstruction
+	Instruction    game.EInstruction
+	MetadataLength int
+	Metadata       []int
 }
 
 type Heartbeat struct {
 	Uptime int64
+}
+
+func Make(data interface{}) []byte {
+	res, _ := json.Marshal(data)
+	return res
 }

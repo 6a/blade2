@@ -11,33 +11,20 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-const MaxChannelSize = 10240
+const MaxChannelSize int = 10240
 const MaxPollWait int64 = 1000
 
 var matchmakingQueue = make(chan *Client, MaxChannelSize)
 var running = true
-var initTime = int64(0)
+var initTime int64
 
 func poll() {
 	for {
 		if len(matchmakingQueue) > 1 {
 			c1, c2 := <-matchmakingQueue, <-matchmakingQueue
 
-			js, err := json.Marshal(templates.Instruction{Instruction: game.GameFound})
-			if err != nil {
-				log.Println("Failed to marshal JSON object when attempting to alert client [c1] that a game was found")
-				c1.sendMessage(templates.GenericError)
-			} else {
-				c1.sendMessage(js)
-			}
-
-			js, err = json.Marshal(templates.Instruction{Instruction: game.GameFound})
-			if err != nil {
-				log.Println("Failed to marshal JSON object when attempting to alert client [c2] that a game was found")
-				c2.sendMessage(templates.GenericError)
-			} else {
-				c2.sendMessage(js)
-			}
+			c1.sendMessage(templates.Make(templates.StandardJSON{Status: game.OK, Message: "C1 - GAME START"}))
+			c2.sendMessage(templates.Make(templates.StandardJSON{Status: game.OK, Message: "C2 - GAME START"}))
 		} else {
 			time.Sleep(time.Millisecond * time.Duration(MaxPollWait))
 
@@ -61,11 +48,11 @@ func JoinQueue(c *websocket.Conn) {
 		client.sendMessage(templates.GenericError)
 	} else {
 		log.Printf("Returning JSON object [%s]\n", js)
-		client.sendMessage(js)
+		client.sendMessage(templates.Make(templates.StandardJSON{Status: game.OK, Message: client.ID}))
 	}
 }
 
-func Init() {
+func InitMatchMakingQueue() {
 	initTime = time.Now().Unix()
 	go poll()
 }

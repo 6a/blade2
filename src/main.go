@@ -32,7 +32,8 @@ func close(sessionID string) {
 
 func main() {
 	var addr = flag.String("addr", "localhost:"+os.Args[1], "http service address")
-	matchmaking.Init()
+	matchmaking.InitMatchMakingQueue()
+	matchmaking.InitMatchManager() // TODO this aint workin
 
 	flag.Parse()
 	log.SetFlags(0)

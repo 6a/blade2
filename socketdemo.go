@@ -16,7 +16,6 @@ import (
 )
 
 var addr = flag.String("addr", "localhost:8080", "http service address")
-var data map[string]interface{}
 
 type StandardJSON struct {
 	Status  game.EStatus
