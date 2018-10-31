@@ -26,14 +26,10 @@ func connect(w http.ResponseWriter, r *http.Request) {
 	matchmaking.JoinQueue(c)
 }
 
-func close(sessionID string) {
-	//delete(sessions, sessionID)
-}
-
 func main() {
 	var addr = flag.String("addr", "localhost:"+os.Args[1], "http service address")
 	matchmaking.InitMatchMakingQueue()
-	matchmaking.InitMatchManager() // TODO this aint workin
+	matchmaking.InitGameHost()
 
 	flag.Parse()
 	log.SetFlags(0)

@@ -1,20 +1,18 @@
 package matchmaking
 
 import (
-	"encoding/json"
 	"fmt"
-	"log"
 	"time"
 
-	"github.com/0110101001110011/blade2/src/game"
+	"github.com/0110101001110011/blade2/src/e"
 	"github.com/0110101001110011/blade2/src/templates"
 	"github.com/gorilla/websocket"
 )
 
-const MaxChannelSize int = 10240
-const MaxPollWait int64 = 1000
+const maxChannelSize = 10240
+const maxPollWait = 1000 * time.Millisecond
 
-var matchmakingQueue = make(chan *Client, MaxChannelSize)
+var matchmakingQueue = make(chan *Client, maxChannelSize)
 var running = true
 var initTime int64
 
@@ -23,10 +21,26 @@ func poll() {
 		if len(matchmakingQueue) > 1 {
 			c1, c2 := <-matchmakingQueue, <-matchmakingQueue
 
-			c1.sendMessage(templates.Make(templates.StandardJSON{Status: game.OK, Message: "C1 - GAME START"}))
-			c2.sendMessage(templates.Make(templates.StandardJSON{Status: game.OK, Message: "C2 - GAME START"}))
+			if c1.IsAlive() && c2.IsAlive() {
+				c1.sendMessage(templates.MakeJSON(templates.Information{Status: e.MatchFound, Message: ""}))
+				c2.sendMessage(templates.MakeJSON(templates.Information{Status: e.MatchFound, Message: ""}))
+				game := CreateGame(c1, c2)
+				AddGame(&game)
+			} else {
+				if !c1.IsAlive() {
+					c1.Drop(templates.MakeJSON(templates.Information{Status: e.OponentDroppedConnection, Message: ""}))
+				} else {
+					matchmakingQueue <- c1
+				}
+
+				if !c2.IsAlive() {
+					c2.Drop(templates.MakeJSON(templates.Information{Status: e.OponentDroppedConnection, Message: ""}))
+				} else {
+					matchmakingQueue <- c2
+				}
+			}
 		} else {
-			time.Sleep(time.Millisecond * time.Duration(MaxPollWait))
+			time.Sleep(maxPollWait)
 
 			if !running {
 				break
@@ -35,23 +49,17 @@ func poll() {
 	}
 }
 
+// JoinQueue creates a Client object and adds it to the matchmaking queue
 func JoinQueue(c *websocket.Conn) {
 	client := NewClient(c)
 	fmt.Printf("Added client [%s] to the matchmaking queue\n", client.ID)
-	client.run()
+	client.activate()
 
 	matchmakingQueue <- &client
-
-	js, err := json.Marshal(templates.StandardJSON{Status: game.OK, Message: client.ID})
-	if err != nil {
-		log.Println("Failed to marshal JSON object when attempting to return the client ID after joining the matchmaking queue")
-		client.sendMessage(templates.GenericError)
-	} else {
-		log.Printf("Returning JSON object [%s]\n", js)
-		client.sendMessage(templates.Make(templates.StandardJSON{Status: game.OK, Message: client.ID}))
-	}
+	client.sendMessage(templates.MakeJSON(templates.Information{Status: e.Connected, Message: client.ID}))
 }
 
+// InitMatchMakingQueue initializes the matchmaking queue
 func InitMatchMakingQueue() {
 	initTime = time.Now().Unix()
 	go poll()

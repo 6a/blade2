@@ -1,4 +1,4 @@
-package game
+package gameobjects
 
 type GameState struct {
 	Turn  int

@@ -11,7 +11,7 @@ However it seems that in reality there are some restrictions such as;
 Cards [TODO investigate numbers]:
     1. Elliot's Orbal Staff
         Score: 1
-        Special: [Rod] Un-bolt a bolted card for the player [TODO check if discarded]
+        Special: [Rod] Un-bolt a bolted card for the player
         Count: 4
     2. Fie's Twin Gunswords
         Score: 2
