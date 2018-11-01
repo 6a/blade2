@@ -1,5 +1,5 @@
 # Blade II Webserver
-#### A webserver written in GO that uses websockets to synchronize 2 clients for a card game called "Blade II"
+#### A webserver written in GO that uses [Gorilla WebSocket](https://github.com/gorilla/websocket) to synchronize 2 clients for a card game called "Blade II"
 
 Blade II is a game featured in some of [Nihon Falcom's](https://en.wikipedia.org/wiki/Nihon_Falcom) more recent games.
 
