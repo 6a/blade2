@@ -6,21 +6,27 @@ import (
 	"github.com/0110101001110011/blade2/src/e"
 )
 
-var GenericError = MakeJSON(Information{Status: e.UnknownError, Message: "Unhandled exception occured"})
+var GenericError = MakeJSON(Information{Code: e.UnknownError, Message: "Unhandled exception occured"})
 
 type Information struct {
-	Status  e.Status
+	Code    e.PayloadType
 	Message string
 }
 
 type Instruction struct {
-	Instruction    e.Instruction
-	MetadataLength int
-	Metadata       []int
+	Code     e.PayloadType
+	Metadata []int
 }
 
-type Heartbeat struct {
-	Uptime int64
+type Delta struct {
+	Entity e.Entity
+	Change int
+	Index  int
+}
+
+// StateUpdate represents all the changes (delta) made during a players turn
+type StateUpdate struct {
+	Deltas []Delta
 }
 
 func MakeJSON(data interface{}) []byte {

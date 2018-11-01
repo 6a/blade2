@@ -30,7 +30,7 @@ func InitGameHost() {
 				case game := <-gamePipelines[index]:
 					if game.Client[0].IsAlive() && game.Client[1].IsAlive() {
 						executed = true
-						game.ExecuteNext()
+						game.Update()
 						gamePipelines[index] <- game
 					} else {
 						for _, client := range game.Client {
@@ -38,7 +38,7 @@ func InitGameHost() {
 								log.Printf("Client [%s] in game [%d] dropped connection", client.ID, game.ID)
 							}
 
-							client.Drop(templates.Information{Status: e.OponentDroppedConnection, Message: ""})
+							client.Drop(templates.Information{Code: e.OponentDroppedConnection, Message: ""})
 						}
 					}
 				default:
@@ -58,7 +58,7 @@ func AddGame(game *Game) {
 	lowestCount := queueSize
 	nextPipe := gamePipelines[0]
 	for _, pipeline := range gamePipelines {
-		l := len(pipeline)
+		l := len(pipeline) // This may be a bit of a bottleneck. If that is the case, then it would be efficient to keep track of pipe utilization
 		if l < lowestCount {
 			lowestCount = l
 			nextPipe = pipeline

@@ -22,19 +22,19 @@ func poll() {
 			c1, c2 := <-matchmakingQueue, <-matchmakingQueue
 
 			if c1.IsAlive() && c2.IsAlive() {
-				c1.sendMessage(templates.MakeJSON(templates.Information{Status: e.MatchFound, Message: ""}))
-				c2.sendMessage(templates.MakeJSON(templates.Information{Status: e.MatchFound, Message: ""}))
+				c1.sendMessage(templates.MakeJSON(templates.Information{Code: e.MatchFound, Message: ""}))
+				c2.sendMessage(templates.MakeJSON(templates.Information{Code: e.MatchFound, Message: ""}))
 				game := CreateGame(c1, c2)
 				AddGame(&game)
 			} else {
 				if !c1.IsAlive() {
-					c1.Drop(templates.MakeJSON(templates.Information{Status: e.OponentDroppedConnection, Message: ""}))
+					c1.Drop(templates.MakeJSON(templates.Information{Code: e.OponentDroppedConnection, Message: ""}))
 				} else {
 					matchmakingQueue <- c1
 				}
 
 				if !c2.IsAlive() {
-					c2.Drop(templates.MakeJSON(templates.Information{Status: e.OponentDroppedConnection, Message: ""}))
+					c2.Drop(templates.MakeJSON(templates.Information{Code: e.OponentDroppedConnection, Message: ""}))
 				} else {
 					matchmakingQueue <- c2
 				}
@@ -56,7 +56,7 @@ func JoinQueue(c *websocket.Conn) {
 	client.activate()
 
 	matchmakingQueue <- &client
-	client.sendMessage(templates.MakeJSON(templates.Information{Status: e.Connected, Message: client.ID}))
+	client.sendMessage(templates.MakeJSON(templates.Information{Code: e.Connected, Message: client.ID}))
 }
 
 // InitMatchMakingQueue initializes the matchmaking queue

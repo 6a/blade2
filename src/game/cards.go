@@ -1,4 +1,4 @@
-package gameobjects
+package game
 
 import (
 	"fmt"
@@ -8,6 +8,7 @@ import (
 	"github.com/0110101001110011/blade2/src/e"
 )
 
+// Card represents a single card, with its name, description etc.
 type Card struct {
 	ID          int
 	Title       string
@@ -17,7 +18,7 @@ type Card struct {
 	Effect      e.Effect
 }
 
-func CreateSpecificCard(card e.CardID) Card {
+func createSpecificCard(card e.CardID) Card {
 	switch card {
 	case e.ElliotStaff:
 		return Card{int(card), "Elliot's Orbal Staff", "Rod", "Enable a card that was disabled by Bolt", 1, e.Rod}
@@ -46,8 +47,17 @@ func CreateSpecificCard(card e.CardID) Card {
 	}
 }
 
-func CreateRandomCard() Card {
+func createRandomCard() Card {
 	rand.Seed(time.Now().UnixNano())
 	cardID := e.CardID(rand.Intn(11))
-	return CreateSpecificCard(cardID)
+	return createSpecificCard(cardID)
+}
+
+// CreateDeck generates a random deck of 30 cards to be used for a single game
+func CreateDeck() [30]Card {
+	deck := [30]Card{}
+
+	// TODO magic
+
+	return deck
 }

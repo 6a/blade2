@@ -16,12 +16,14 @@ const dropDelay = 2 * time.Second
 
 var birthTime = time.Now().Unix()
 var ack = []byte("LS1BQ0stLQ==")
+var heartbeatPayload = []byte("--ACK--")
 
 // Client is a container for a websocket connection with a client, along with some metadata
 type Client struct {
 	Connection      *websocket.Conn
 	ID              string
 	SendQueue       chan []byte
+	Update          *templates.StateUpdate
 	LastMessageTime time.Time
 	DropOnNextSend  bool
 }
@@ -29,7 +31,7 @@ type Client struct {
 // NewClient creates a new Client object with an associated websocket connection
 func NewClient(c *websocket.Conn) Client {
 	id := uuid.Must(uuid.NewV4()).String()
-	return Client{c, id, make(chan []byte), time.Now(), false}
+	return Client{c, id, make(chan []byte), nil, time.Now(), false}
 }
 
 func (c *Client) activate() {
@@ -44,11 +46,15 @@ func (c *Client) activate() {
 func sendPump(c *Client) {
 	for {
 		message := <-c.SendQueue
-		err := c.Connection.WriteJSON(message)
+		var err error
+		if string(message) == string(heartbeatPayload) {
+			err = c.Connection.WriteMessage(websocket.BinaryMessage, message)
+		} else {
+			err = c.Connection.WriteJSON(message)
+		}
 
 		if err != nil {
-			// TODO handle error
-
+			// TODO handle
 		}
 
 		if c.DropOnNextSend {
@@ -87,12 +93,16 @@ func heartbeat(c *Client) {
 	for {
 		time.Sleep(heartbeatPeriod)
 
-		c.sendMessage(templates.MakeJSON(templates.Heartbeat{Uptime: time.Now().Unix() - birthTime}))
+		c.sendHeartbeat()
 	}
 }
 
 func (c *Client) sendMessage(msg []byte) {
 	c.SendQueue <- msg
+}
+
+func (c *Client) sendHeartbeat() {
+	c.SendQueue <- heartbeatPayload
 }
 
 // IsAlive returns true if the time since most recent client response is less than the heartbeat timeout value
