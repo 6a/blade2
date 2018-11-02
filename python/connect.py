@@ -7,7 +7,7 @@ import base64
 import json
 import websockets
 
-ACK_BIN = b"--ACK--"
+ACK_BIN = b"--HB--"
 ACK_B64 = base64.b64encode(ACK_BIN)
 
 

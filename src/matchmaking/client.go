@@ -15,8 +15,8 @@ const heartbeatTimeout = heartbeatPeriod * 2
 const dropDelay = 2 * time.Second
 
 var birthTime = time.Now().Unix()
-var ack = []byte("LS1BQ0stLQ==")
-var heartbeatPayload = []byte("--ACK--")
+var ack = []byte("LS1IQi0t")
+var heartbeatPayload = []byte("--HB--")
 
 // Client is a container for a websocket connection with a client, along with some metadata
 type Client struct {
