@@ -1,63 +1,31 @@
 package game
 
 import (
-	"fmt"
-	"math/rand"
-	"time"
-
 	"github.com/0110101001110011/blade2/src/e"
+	"github.com/0110101001110011/blade2/src/tools"
 )
 
-// Card represents a single card, with its name, description etc.
-type Card struct {
-	ID          int
-	Title       string
-	SpecialName string
-	Description string
-	Value       int
-	Effect      e.Effect
-}
+const DeckSize = 30
 
-func createSpecificCard(card e.CardID) Card {
-	switch card {
-	case e.ElliotStaff:
-		return Card{int(card), "Elliot's Orbal Staff", "Rod", "Enable a card that was disabled by Bolt", 1, e.Rod}
-	case e.Gunswords:
-		return Card{int(card), "Fie's Twin Gunswords", "", "", 2, e.None}
-	case e.Bow:
-		return Card{int(card), "Alisa's Orbal Bow", "", "", 3, e.None}
-	case e.Sword:
-		return Card{int(card), "Jusis' Sword", "", "", 4, e.None}
-	case e.Shotgun:
-		return Card{int(card), "Machias' Orbal Shotgun", "", "", 5, e.None}
-	case e.Spear:
-		return Card{int(card), "Gaius' Spear", "", "", 6, e.None}
-	case e.Greatsword:
-		return Card{int(card), "Laura's Greatsword", "", "", 7, e.None}
-	case e.Tachi:
-		return Card{int(card), "Reans' Tachi", "Bolt", "Disables the last card placed by your oponent, and is then discarded", 1, e.Bolt}
-	case e.EmmaStaff:
-		return Card{int(card), "Emma's Orbal Staff", "Mirror", "Reverses the playing field, and is then discarded", 1, e.Mirror}
-	case e.Rapier:
-		return Card{int(card), "Elise's Rapier", "Blast", "Allows you to remove and discard a card from your oponents hand, and is then discarded", 1, e.Blast}
-	case e.SwordAndGun:
-		return Card{int(card), "Sara's Sword and Gun", "Force", "Doubles your score, and is then placed on the field", 1, e.Force}
-	default:
-		panic(fmt.Sprintf("A card with the ID [%T] was requested, but this is not a valid card ID", card))
-	}
-}
+// Returns an random array of cards to be used for a single game
+func GenerateGameDeck() []e.CardID {
+	// This implementation is a bit primitive but at least its easy to see whats going into the stock
+	var stock []e.CardID
+	stock = append(stock, e.ElliotStaff, e.ElliotStaff, e.ElliotStaff, e.ElliotStaff)
+	stock = append(stock, e.Gunswords, e.Gunswords, e.Gunswords, e.Gunswords)
+	stock = append(stock, e.Bow, e.Bow, e.Bow, e.Bow)
+	stock = append(stock, e.Sword, e.Sword, e.Sword, e.Sword)
+	stock = append(stock, e.Shotgun, e.Shotgun, e.Shotgun, e.Shotgun)
+	stock = append(stock, e.Spear, e.Spear, e.Spear, e.Spear)
+	stock = append(stock, e.Greatsword, e.Greatsword) // Note - Only 2 of these?
+	stock = append(stock, e.Tachi, e.Tachi, e.Tachi, e.Tachi)
+	stock = append(stock, e.EmmaStaff, e.EmmaStaff, e.EmmaStaff, e.EmmaStaff)
+	stock = append(stock, e.Rapier, e.Rapier, e.Rapier, e.Rapier)
+	stock = append(stock, e.SwordAndGun, e.SwordAndGun, e.SwordAndGun, e.SwordAndGun) // Note - Only 2 of these?
 
-func createRandomCard() Card {
-	rand.Seed(time.Now().UnixNano())
-	cardID := e.CardID(rand.Intn(11))
-	return createSpecificCard(cardID)
-}
+	// Shuffle all the cards
+	tools.ShuffleCards(stock)
 
-// CreateDeck generates a random deck of 30 cards to be used for a single game
-func CreateDeck() [30]Card {
-	deck := [30]Card{}
-
-	// TODO magic
-
-	return deck
+	// Take the first 30 cards and return them
+	return stock[0:30]
 }

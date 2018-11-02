@@ -13,7 +13,7 @@ import (
 const idleTick = 2000 * time.Millisecond
 const queueSize = 2048
 
-var queueCount = tools.Max(int(float32(runtime.NumCPU())*0.75), 1)
+var queueCount = tools.MaxInt(int(float32(runtime.NumCPU())*0.75), 1)
 var gamePipelines = make([]chan *Game, queueCount)
 
 // InitGameHost initializes the game management queue

@@ -13,7 +13,7 @@ const (
 	Force  Effect = 5
 )
 
-// CardID represents the ID number for each card
+// GenerateDeck represents the ID number for each card
 type CardID int
 
 // CardID consts (enum)

@@ -22,8 +22,8 @@ func poll() {
 			c1, c2 := <-matchmakingQueue, <-matchmakingQueue
 
 			if c1.IsAlive() && c2.IsAlive() {
-				c1.sendMessage(templates.MakeJSON(templates.Information{Code: e.MatchFound, Message: ""}))
-				c2.sendMessage(templates.MakeJSON(templates.Information{Code: e.MatchFound, Message: ""}))
+				c1.sendMessage(templates.MakeJSON(templates.Information{Code: e.MatchFound, Message: "0"}))
+				c2.sendMessage(templates.MakeJSON(templates.Information{Code: e.MatchFound, Message: "1"}))
 				game := CreateGame(c1, c2)
 				AddGame(&game)
 			} else {

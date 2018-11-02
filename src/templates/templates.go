@@ -6,18 +6,16 @@ import (
 	"github.com/0110101001110011/blade2/src/e"
 )
 
+// GenericError is a prepackaged binary JSON used for unhandled error output
 var GenericError = MakeJSON(Information{Code: e.UnknownError, Message: "Unhandled exception occured"})
 
+// Information represents the outcome of a particular action
 type Information struct {
 	Code    e.PayloadType
 	Message string
 }
 
-type Instruction struct {
-	Code     e.PayloadType
-	Metadata []int
-}
-
+// Delta represents a single change that occurs in a game
 type Delta struct {
 	Entity e.Entity
 	Change int
@@ -29,6 +27,7 @@ type StateUpdate struct {
 	Deltas []Delta
 }
 
+// MakeJSON Packages struct as as binary JSON
 func MakeJSON(data interface{}) []byte {
 	res, _ := json.Marshal(data)
 	return res

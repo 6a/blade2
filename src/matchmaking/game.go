@@ -28,7 +28,8 @@ func CreateGame(c1 *Client, c2 *Client) Game {
 // Update updates the internal game state send by a player and then relays it to the other player
 func (g *Game) Update() {
 	if !g.Started {
-		// TODO send decks to both players
+		// TODO send gamestate to both players
+		g.Started = true
 		return
 	}
 	time.Sleep(1 * time.Second)
