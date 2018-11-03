@@ -13,6 +13,9 @@ Description (taken from Cold Steel 2 Eng ver.)
 - If the final card of the game results in the field being cleared, the match will result in a draw.
 - 
 
+TODO:
+    - How many special cards can exist in a single game? Per player? 3?
+
 4 of each card makes a deck of 44
 However it seems that in reality there are some restrictions such as;
     - There only seems to be 2 of the 7pt card in a single Gameplay
