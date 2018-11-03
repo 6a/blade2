@@ -3,6 +3,16 @@ Sources:
     http://legendofheroes.wikia.com/wiki/Blade_(minigame)
     https://ameblo.jp/crow-armbrust/entry-12026099028.html
 
+Description (taken from Cold Steel 2 Eng ver.)
+- Blade II is a card game in which two players take turns placing numbered cards on the field and vie for the greater sum total.
+- Once both players have been dealt their hands, they must each draw a card from the deck and place it on the field.
+- The player who draws the lower number card must then proceed to place a card from their hand onto the field.
+- The player who goes second must then play a card with a value that allows them to surpass their opponents current total.
+- This process repeats until one player can no longer surpass their opponents total value, or they run out of cards.
+- Should both players have an equal total at any point, the field is cleared and both players must draw and play new cards.
+- If the final card of the game results in the field being cleared, the match will result in a draw.
+- 
+
 4 of each card makes a deck of 44
 However it seems that in reality there are some restrictions such as;
     - There only seems to be 2 of the 7pt card in a single Gameplay
@@ -10,52 +20,58 @@ However it seems that in reality there are some restrictions such as;
 
 Cards [TODO investigate numbers]:
     1. Elliot's Orbal Staff
+        Card description: Adds 1 to your currentl total or brings back a card removed by a bolt card.
         Score: 1
-        Special: [Rod] Un-bolt a bolted card for the player
+        Special: [Rod] Bring back a card removed by the use of a bolt card
         Count: 4
     2. Fie's Twin Gunswords
+        Card description: Adds 2 to your current total.
         Score: 2
         Special: None
         Count: 4
     3. Alisa's Orbal Bow
+        Card description: Adds 3 to your current total.
         Score: 3
         Special: None
         Count: 4
     4. Jusis' Sword
+        Card description: Adds 4 to your current total.
         Score: 4
         Special: None
         Count: 4
     5. Machias' Orbal Shotgun
+        Card description: Adds 5 to your current total.
         Score: 5
         Special: None
         Count: 4
     6. Gaius' Spear
+        Card description: Adds 6 to your current total.
         Score: 6
         Special: None
         Count: 4
     7. Laura's Greatsword
+        Card description: Adds 7 to your current total.
         Score: 7
         Special: None
-        Count: 4 [2?] 
-    8. Reans' Tachi
+        Count: 2
+    8. Reans' Tachi 
+        Card description: Removes the last card your oponent placed onto the field.
         Score: 1
-        Special: [Bolt] Bolts the oponents last played card and is then discarded
+        Special: [Bolt] Remove the last card that your oponent placed on the field
         Count: 4
     9. Emma's Orbal Staff
+        Card description: Switches your cards with your opponents.
         Score: 1
-        Special: [Mirror] Reverses the playing field and is then discarded
+        Special: [Mirror] Switch the positions of the cards currently placed on the field
         Count: 4
     10. Elise's Rapier
         Score: 1
-        Special: [Blast] Removes a card from the oponents hand (player chooses but cannot see the card faces) and is then discarded
-        Count: 4
+        Special: [Blast] Choose one of your oponents cards to discard (you cannot see their hand, however)
+        Count: 4 [2?]
     11. Sara's Sword and Gun
         Score: 1
-        Special: [Force] Doubles the players current score and is then placed on the field
+        Special: [Force] Doubles your current total
         Count: 4 [2?]
-
-TODO:
-    - What happens if the player has only multiple special cards remaining after their turn?
 
 Special rules:
     1. The 1pt card usually counts as a 1 point card, OR it will resurrect a card that was flipped by a bolt and get discarded instead.
@@ -68,6 +84,7 @@ Special rules:
     4. If a special card is played with an empty field, it is considered to be worth 1 point and played without any further action
     5. If a round ends in a draw, causing the field to be cleared, and a player has an empty deck, they draw from their hand instead
     6. Apparently each deck is a subset of the whole set of cards, containing 5 extra cards
+    7. If you only have special cards left its still fine to play as long as you have more than 1.
 
 End conditions:
     1. Current player ended their turn without bringing their score above the oponents score
