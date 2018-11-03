@@ -11,7 +11,7 @@ var GenericError = MakeJSON(Information{Code: e.UnknownError, Message: "Unhandle
 
 // Information represents the outcome of a particular action
 type Information struct {
-	Code    e.PayloadType
+	Code    e.Status
 	Message string
 }
 
@@ -24,7 +24,8 @@ type Delta struct {
 
 // StateUpdate represents all the changes (delta) made during a players turn
 type StateUpdate struct {
-	Deltas []Delta
+	TurnChanged bool
+	Deltas      []Delta
 }
 
 // MakeJSON Packages struct as as binary JSON

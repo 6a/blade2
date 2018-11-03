@@ -10,7 +10,7 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-const heartbeatPeriod = 1 * time.Second
+const heartbeatPeriod = 500 * time.Second
 const heartbeatTimeout = heartbeatPeriod * 2
 const dropDelay = 2 * time.Second
 

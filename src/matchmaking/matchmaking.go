@@ -18,24 +18,24 @@ var initTime int64
 func poll() {
 	for {
 		if len(matchmakingQueue) > 1 {
-			pair, matchmakingQueue := matchmakingQueue[0:2], matchmakingQueue[2:]
-			c1, c2 := pair[0], pair[1]
-			if c1.IsAlive() && c2.IsAlive() {
-				c1.sendMessage(templates.MakeJSON(templates.Information{Code: e.MatchFound, Message: "0"}))
-				c2.sendMessage(templates.MakeJSON(templates.Information{Code: e.MatchFound, Message: "1"}))
-				game := CreateGame(c1, c2)
+			clients := matchmakingQueue[0:2]
+			matchmakingQueue = matchmakingQueue[2:]
+			if clients[0].IsAlive() && clients[1].IsAlive() {
+				clients[0].sendMessage(templates.MakeJSON(templates.Information{Code: e.MatchFound, Message: "0"}))
+				clients[1].sendMessage(templates.MakeJSON(templates.Information{Code: e.MatchFound, Message: "1"}))
+				game := CreateGame(clients[0], clients[1])
 				AddGame(&game)
 			} else {
-				if !c1.IsAlive() {
-					c1.Drop(templates.MakeJSON(templates.Information{Code: e.OponentDroppedConnection, Message: ""}))
+				if !clients[0].IsAlive() {
+					clients[0].Drop(templates.MakeJSON(templates.Information{Code: e.OponentDroppedConnection, Message: ""}))
 				} else {
-					matchmakingQueue = append([]*Client{c1}, matchmakingQueue...)
+					matchmakingQueue = append([]*Client{clients[0]}, matchmakingQueue...)
 				}
 
-				if !c2.IsAlive() {
-					c2.Drop(templates.MakeJSON(templates.Information{Code: e.OponentDroppedConnection, Message: ""}))
+				if !clients[1].IsAlive() {
+					clients[1].Drop(templates.MakeJSON(templates.Information{Code: e.OponentDroppedConnection, Message: ""}))
 				} else {
-					matchmakingQueue = append([]*Client{c2}, matchmakingQueue...)
+					matchmakingQueue = append([]*Client{clients[1]}, matchmakingQueue...)
 				}
 			}
 		} else {
@@ -53,7 +53,6 @@ func JoinQueue(c *websocket.Conn) {
 	client := NewClient(c)
 	fmt.Printf("Added client [%s] to the matchmaking queue\n", client.ID)
 	client.activate()
-
 	matchmakingQueue = append(matchmakingQueue, &client)
 	client.sendMessage(templates.MakeJSON(templates.Information{Code: e.Connected, Message: client.ID}))
 }
