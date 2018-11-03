@@ -9,18 +9,17 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-const maxChannelSize = 10240
 const maxPollWait = 1000 * time.Millisecond
 
-var matchmakingQueue = make(chan *Client, maxChannelSize)
+var matchmakingQueue []*Client
 var running = true
 var initTime int64
 
 func poll() {
 	for {
 		if len(matchmakingQueue) > 1 {
-			c1, c2 := <-matchmakingQueue, <-matchmakingQueue
-
+			pair, matchmakingQueue := matchmakingQueue[0:2], matchmakingQueue[2:]
+			c1, c2 := pair[0], pair[1]
 			if c1.IsAlive() && c2.IsAlive() {
 				c1.sendMessage(templates.MakeJSON(templates.Information{Code: e.MatchFound, Message: "0"}))
 				c2.sendMessage(templates.MakeJSON(templates.Information{Code: e.MatchFound, Message: "1"}))
@@ -30,13 +29,13 @@ func poll() {
 				if !c1.IsAlive() {
 					c1.Drop(templates.MakeJSON(templates.Information{Code: e.OponentDroppedConnection, Message: ""}))
 				} else {
-					matchmakingQueue <- c1
+					matchmakingQueue = append([]*Client{c1}, matchmakingQueue...)
 				}
 
 				if !c2.IsAlive() {
 					c2.Drop(templates.MakeJSON(templates.Information{Code: e.OponentDroppedConnection, Message: ""}))
 				} else {
-					matchmakingQueue <- c2
+					matchmakingQueue = append([]*Client{c2}, matchmakingQueue...)
 				}
 			}
 		} else {
@@ -55,7 +54,7 @@ func JoinQueue(c *websocket.Conn) {
 	fmt.Printf("Added client [%s] to the matchmaking queue\n", client.ID)
 	client.activate()
 
-	matchmakingQueue <- &client
+	matchmakingQueue = append(matchmakingQueue, &client)
 	client.sendMessage(templates.MakeJSON(templates.Information{Code: e.Connected, Message: client.ID}))
 }
 
