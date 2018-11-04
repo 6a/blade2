@@ -48,7 +48,6 @@ func InitGameHost() {
 					if len(gamePipelines[index]) >= currentGameIndex {
 						currentGameIndex = 0
 						time.Sleep(gameTick)
-						print("TICK\n")
 					}
 				default:
 					if !executed {
