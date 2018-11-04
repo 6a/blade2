@@ -14,6 +14,7 @@ const (
 const (
 	UnknownError             Status = 200
 	OponentDroppedConnection Status = 201
+	Drop                     Status = 202
 )
 
 // Entity describes a changeable part of the game (hand, deck etc)

@@ -2,6 +2,7 @@ package matchmaking
 
 import (
 	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/0110101001110011/blade2/src/e"
@@ -17,30 +18,41 @@ var initTime int64
 
 func poll() {
 	for {
+		// If there are at least 2 clients in the matchmaking queue
 		if len(matchmakingQueue) > 1 {
-			clients := matchmakingQueue[0:2]
-			matchmakingQueue = matchmakingQueue[2:]
-			if clients[0].IsAlive() && clients[1].IsAlive() {
-				clients[0].sendMessage(templates.MakeJSON(templates.Information{Code: e.MatchFound, Message: "0"}))
-				clients[1].sendMessage(templates.MakeJSON(templates.Information{Code: e.MatchFound, Message: "1"}))
-				game := CreateGame(clients[0], clients[1])
-				AddGame(&game)
-			} else {
-				if !clients[0].IsAlive() {
-					clients[0].Drop(templates.MakeJSON(templates.Information{Code: e.OponentDroppedConnection, Message: ""}))
+			// Find two live clients
+			var clients []*Client
+			queuePos := 0
+			for {
+				// If the current client being checked is alive, add it to the list of clients
+				// Otherwise drop it and keep searching
+				if matchmakingQueue[queuePos].IsAlive() {
+					clients = append(clients, matchmakingQueue[queuePos])
 				} else {
-					matchmakingQueue = append([]*Client{clients[0]}, matchmakingQueue...)
+					matchmakingQueue[queuePos].Drop(templates.MakeJSON(templates.Information{Code: e.Drop, Message: ""}))
 				}
 
-				if !clients[1].IsAlive() {
-					clients[1].Drop(templates.MakeJSON(templates.Information{Code: e.OponentDroppedConnection, Message: ""}))
-				} else {
-					matchmakingQueue = append([]*Client{clients[1]}, matchmakingQueue...)
+				queuePos++
+
+				// If two live clients are found, generate a match and add it to the game host
+				if len(clients) > 1 {
+					matchmakingQueue = matchmakingQueue[queuePos:]
+					for index := 0; index < 2; index++ {
+						clients[index].sendMessage(templates.MakeJSON(templates.Information{Code: e.MatchFound, Message: strconv.Itoa(index)}))
+					}
+
+					game := CreateGame(clients[0], clients[1])
+					AddGame(&game)
+					break
+				}
+
+				// If the number of clients that are needed exceeds the number of uncheckd clients in the queue, exit early
+				if len(matchmakingQueue[queuePos:]) < (2 - len(clients)) {
+					break
 				}
 			}
 		} else {
 			time.Sleep(maxPollWait)
-
 			if !running {
 				break
 			}
