@@ -3,7 +3,6 @@ package matchmaking
 import (
 	"github.com/0110101001110011/blade2/src/game"
 	"github.com/0110101001110011/blade2/src/templates"
-	"github.com/0110101001110011/blade2/src/tools"
 )
 
 var nextGameID uint64
@@ -12,28 +11,27 @@ var nextGameID uint64
 type Game struct {
 	ID     uint64
 	Client [2]*Client
-	Turn   int
 }
 
 // CreateGame creates a new Game object using two Client objects
 func CreateGame(c1 *Client, c2 *Client) Game {
-	state := game.CreateGameState()
-	game := Game{nextGameID, [2]*Client{c1, c2}, state.Turn}
+	state := game.GenerateCards()
+	game := Game{nextGameID, [2]*Client{c1, c2}}
 	c1.sendMessage(templates.MakeJSON(state))
 	c2.sendMessage(templates.MakeJSON(state))
 	nextGameID++
 	return game
 }
 
-// Update updates the internal game state send by a player and then relays it to the other player
-func (g *Game) Update() {
-	if g.Client[g.Turn].Update != nil {
-		g.Client[tools.AddRotaryInt(g.Turn, 1, 2, 0)].sendMessage(templates.MakeJSON(g.Client[g.Turn].Update))
+// RelayUpdates relays any updates from a client to the other client
+func (g *Game) RelayUpdates() {
+	if g.Client[0].Update != nil {
+		g.Client[1].sendMessage(templates.MakeJSON(g.Client[0].Update))
+		g.Client[0].Update = nil
+	}
 
-		if g.Client[g.Turn].Update.TurnChanged {
-			g.Turn = tools.AddRotaryInt(g.Turn, 1, 2, 0)
-		}
-
-		g.Client[g.Turn].Update = nil
+	if g.Client[1].Update != nil {
+		g.Client[0].sendMessage(templates.MakeJSON(g.Client[1].Update))
+		g.Client[1].Update = nil
 	}
 }

@@ -32,7 +32,7 @@ func InitGameHost() {
 				case game := <-gamePipelines[index]:
 					if game.Client[0].IsAlive() && game.Client[1].IsAlive() {
 						executed = true
-						game.Update()
+						game.RelayUpdates()
 						gamePipelines[index] <- game
 					} else {
 						for _, client := range game.Client {
