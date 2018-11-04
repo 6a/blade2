@@ -1,10 +1,12 @@
 package matchmaking
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"time"
 
+	"github.com/0110101001110011/blade2/src/e"
 	"github.com/0110101001110011/blade2/src/templates"
 	"github.com/gorilla/websocket"
 	uuid "github.com/satori/go.uuid"
@@ -23,7 +25,7 @@ type Client struct {
 	Connection      *websocket.Conn
 	ID              string
 	SendQueue       chan []byte
-	Update          *templates.StateUpdate
+	Updates         []templates.StateUpdate
 	LastMessageTime time.Time
 	DropOnNextSend  bool
 }
@@ -84,7 +86,14 @@ func receivePump(c *Client) {
 		c.LastMessageTime = time.Now()
 
 		if string(message) != string(ack) {
-			fmt.Printf("[%s] Received a message: [%s]\n", c.ID, message)
+			jsonObject := templates.StateUpdate{}
+			if err := json.Unmarshal(message, &jsonObject); err == nil {
+				c.Updates = append(c.Updates, jsonObject)
+				fmt.Printf("[%s] Received a State Update: [%s]\n", c.ID, message)
+			} else {
+				c.sendMessage(templates.MakeJSON(templates.Information{Code: e.StatusUpdateMalformed, Message: err.Error()}))
+				fmt.Printf("[%s] Received a State that was incorrectly formatted: [%s]\n", c.ID, err.Error())
+			}
 		}
 	}
 }

@@ -15,6 +15,7 @@ const (
 	UnknownError             Status = 200
 	OponentDroppedConnection Status = 201
 	Drop                     Status = 202
+	StatusUpdateMalformed    Status = 203
 )
 
 // Entity describes a changeable part of the game (hand, deck etc)
@@ -29,4 +30,5 @@ const (
 	Score        Entity = 4
 	FieldSwap    Entity = 5
 	ClearField   Entity = 6
+	GameOver     Entity = 7
 )

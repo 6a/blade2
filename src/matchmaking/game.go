@@ -25,13 +25,15 @@ func CreateGame(c1 *Client, c2 *Client) Game {
 
 // RelayUpdates relays any updates from a client to the other client
 func (g *Game) RelayUpdates() {
-	if g.Client[0].Update != nil {
-		g.Client[1].sendMessage(templates.MakeJSON(g.Client[0].Update))
-		g.Client[0].Update = nil
+	if len(g.Client[0].Updates) > 0 {
+		update := g.Client[0].Updates[0]
+		g.Client[0].Updates = g.Client[0].Updates[1:]
+		g.Client[1].sendMessage(templates.MakeJSON(update))
 	}
 
-	if g.Client[1].Update != nil {
-		g.Client[0].sendMessage(templates.MakeJSON(g.Client[1].Update))
-		g.Client[1].Update = nil
+	if len(g.Client[1].Updates) > 0 {
+		update := g.Client[1].Updates[0]
+		g.Client[1].Updates = g.Client[1].Updates[1:]
+		g.Client[0].sendMessage(templates.MakeJSON(update))
 	}
 }
