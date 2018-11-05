@@ -82,13 +82,7 @@ type Cards struct {
 // GenerateCards generates a new Cards struct, containing all the objects and tracking values required for a single game
 func GenerateCards() Cards {
 	// Get all cards for this game
-	stock := GenerateGameDeck()
-
-	// filter out a subdeck for each player
-
-	// Separate the deck into basics and specials
-	basic := stock[0]
-	specials := stock[1]
+	basic, specials := GenerateGameDeck()
 
 	// Determine how many specials each player will have (0-MaxSpecialCardsPerPlayer (3))
 	p1NumSpecials := MinSpecialCardsPerPlayer + rand.Intn((MaxSpecialCardsPerPlayer-MinSpecialCardsPerPlayer)+1)
@@ -143,20 +137,18 @@ func GenerateCards() Cards {
 }
 
 // GenerateGameDeck returns an random array of cards to be used for a single game
-func GenerateGameDeck() [2][]CardID {
+func GenerateGameDeck() (basic, special []CardID) {
 	// Make a copy of the base deck and shuffle them
-	basic := make([]CardID, baseDeckBasicSize)
-	copy(basic, baseDeckBasic)
-	ShuffleCards(basic)
+	b := make([]CardID, baseDeckBasicSize)
+	copy(b, baseDeckBasic)
+	ShuffleCards(b)
 
 	// Make a copy of the specials deck and shuffle them
-	special := make([]CardID, baseDeckSpecialSize)
-	copy(special, baseDeckSpecial)
-	ShuffleCards(special)
+	s := make([]CardID, baseDeckSpecialSize)
+	copy(s, baseDeckSpecial)
+	ShuffleCards(s)
 
-	outdecks := [2][]CardID{basic[0:baseDeckBasicSize], special[0:maxSpecials]}
-
-	return outdecks
+	return b[0:baseDeckBasicSize], s[0:maxSpecials]
 }
 
 // Score returns the basic score value for a card as if it was played without triggering any effect

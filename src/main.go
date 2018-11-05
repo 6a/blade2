@@ -41,7 +41,7 @@ func main() {
 	// Seed the random generator
 	rand.Seed(time.Now().UTC().UnixNano())
 
-	// Spin up the various async server features
+	// Spin up the various async server pipelines
 	server.InitMatchMakingQueue()
 	server.InitGameHost()
 
