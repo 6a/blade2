@@ -15,7 +15,7 @@ const lobbySize = 10240
 
 // Use a channel to prevent race conditions - new clients are added to the lobby channel, which is then
 // checked and dumped into the matchmakingQueue slice at the end of the matchmaking queue loop
-// This is done instead of a single channel to reduce the complexity and memory thrashing that may come about from
+// This is done instead of a single channel to reduce complexity and memory thrashing that may come about from
 // frequently removing and replacing things in a channel
 var lobby = make(chan *Client, lobbySize)
 var matchmakingQueue []*Client
