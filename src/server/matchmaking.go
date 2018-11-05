@@ -10,14 +10,37 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-const maxPollWait = 1000 * time.Millisecond
+const queueTickRate = (1000 / 1) * time.Millisecond
+const lobbySize = 10240
 
+// Use a channel to prevent race conditions - new clients are added to the lobby channel, which is then
+// checked and dumped into the matchmakingQueue slice at the end of the matchmaking queue loop
+// This is done instead of a single channel to reduce the complexity and memory thrashing that may come about from
+// frequently removing and replacing things in a channel
+var lobby = make(chan *Client, lobbySize)
 var matchmakingQueue []*Client
-var running = true
-var initTime int64
 
-func poll() {
+var running = true
+
+func processMatchmakingQueue() {
 	for {
+		// Exit early if the server is being shut down or something
+		if !running {
+			break
+		}
+
+		// If some more clients connected, add them to the queue
+		// If there are no client to add, the loop breaks immediately
+		processLobby := true
+		for processLobby {
+			select {
+			case client := <-lobby:
+				matchmakingQueue = append(matchmakingQueue, client)
+			default:
+				processLobby = false
+			}
+		}
+
 		// If there are at least 2 clients in the matchmaking queue
 		if len(matchmakingQueue) > 1 {
 			// Find two live clients
@@ -53,10 +76,7 @@ func poll() {
 				}
 			}
 		} else {
-			time.Sleep(maxPollWait)
-			if !running {
-				break
-			}
+			time.Sleep(queueTickRate)
 		}
 	}
 }
@@ -64,14 +84,13 @@ func poll() {
 // JoinQueue creates a Client object and adds it to the matchmaking queue
 func JoinQueue(c *websocket.Conn) {
 	client := NewClient(c)
-	fmt.Printf("Added client [%s] to the matchmaking queue\n", client.ID)
 	client.activate()
-	matchmakingQueue = append(matchmakingQueue, &client)
 	client.sendMessage(templates.MakeJSON(templates.Information{Code: e.Connected, Message: client.ID}))
+	fmt.Printf("Added client [%s] to the matchmaking queue\n", client.ID)
+	lobby <- &client
 }
 
 // InitMatchMakingQueue initializes the matchmaking queue
 func InitMatchMakingQueue() {
-	initTime = time.Now().Unix()
-	go poll()
+	go processMatchmakingQueue()
 }

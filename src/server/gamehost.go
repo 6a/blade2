@@ -15,14 +15,14 @@ const idleTick = 2000 * time.Millisecond
 const gameTick = (1000 / 50) * time.Millisecond
 
 var queueCount = tools.MaxInt(int(float32(runtime.NumCPU())*0.75), 1)
+var gameLobbies = make([]chan *Game, queueCount)
 var gamePipelines = make([][]*Game, queueCount)
 
 // InitGameHost initializes the game management queue
 func InitGameHost() {
-	// Initialize
-	// for i := range gamePipelines {
-	// 	gamePipelines[i] = []*Game{}
-	// }
+	for i := range gameLobbies {
+		gameLobbies[i] = make(chan *Game, lobbySize)
+	}
 
 	// Indices:
 	// - pli (Pipeline Index)
@@ -32,6 +32,18 @@ func InitGameHost() {
 		// Each pipeline gets it own goroutine
 		go func(pli int) {
 			for {
+				// If some more games are queued to be added to the pipeline, add them
+				// If there are no games to add, the loop breaks immediately
+				processLobby := true
+				for processLobby {
+					select {
+					case game := <-gameLobbies[pli]:
+						gamePipelines[pli] = append(gamePipelines[pli], game)
+					default:
+						processLobby = false
+					}
+				}
+
 				// - Count how many games are in this pipeline. This is done incase another game is added during iteration. If
 				//   more games are added during this time, the following code is unaffected as the extra games are never accessed.
 				// - Check every game to ensure both clients are alive.
@@ -92,5 +104,5 @@ func AddGame(game *Game) {
 		}
 	}
 
-	gamePipelines[nextPipeIndex] = append(gamePipelines[nextPipeIndex], game)
+	gameLobbies[nextPipeIndex] <- game
 }
