@@ -46,7 +46,7 @@ func poll() {
 					break
 				}
 
-				// If the number of clients that are needed exceeds the number of uncheckd clients in the queue, exit early
+				// If the number of clients that are needed exceeds the number of unchecked clients in the queue, exit early
 				if len(matchmakingQueue[queuePos:]) < (2 - len(clients)) {
 					matchmakingQueue = matchmakingQueue[queuePos:]
 					break

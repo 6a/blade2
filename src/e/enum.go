@@ -30,5 +30,6 @@ const (
 	Score        Entity = 4
 	FieldSwap    Entity = 5
 	ClearField   Entity = 6
-	GameOver     Entity = 7
+	Won          Entity = 7
+	Lost         Entity = 8
 )

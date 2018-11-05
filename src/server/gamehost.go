@@ -29,27 +29,49 @@ func InitGameHost() {
 	// - gi (Game Index)
 	// - ci (Client Index)
 	for pli := 0; pli < queueCount; pli++ {
+		// Each pipeline gets it own goroutine
 		go func(pli int) {
 			for {
+				// - Count how many games are in this pipeline. This is done incase another game is added during iteration. If
+				//   more games are added during this time, the following code is unaffected as the extra games are never accessed.
+				// - Check every game to ensure both clients are alive.
+				//   - Both alive: Prompt game to relay any stored updates between each client
+				//	 - 1 or both dead: Add the games index (position in the pipeline) to hte list of games to remove
 				iterations := len(gamePipelines[pli])
+
+				// A list of games that have dead clients (and therefore need to be removed once iteration has finished)
+				toRemove := []int{}
 				if iterations > 0 {
 					for gi := 0; gi < iterations; gi++ {
 						if gamePipelines[pli][gi].Client[0].IsAlive() && gamePipelines[pli][gi].Client[1].IsAlive() {
 							gamePipelines[pli][gi].RelayUpdates()
 						} else {
-							for ci := 1; ci > 0; ci-- {
-								if !gamePipelines[pli][gi].Client[ci].IsAlive() {
-									log.Printf("Client [%s] in game [%d] dropped connection", gamePipelines[pli][gi].Client[ci].ID, gamePipelines[pli][gi].ID)
-									gamePipelines[pli][gi].Client[ci].Drop(templates.Information{Code: e.Drop, Message: ""})
-									gamePipelines[pli][gi].Client[1-ci].Drop(templates.Information{Code: e.OponentDroppedConnection, Message: ""})
-								}
-							}
-
-							gamePipelines[pli] = append(gamePipelines[pli][:gi], gamePipelines[pli][gi+1:]...)
+							toRemove = append(toRemove, gi)
 						}
 					}
 
-					time.Sleep(gameTick * 10)
+					// If the toRemove array contains indices, it means that there are some games to remove from the pipeline
+					// This is done backwards to avoid indexing errors
+					for tri := len(toRemove) - 1; tri >= 0; tri-- {
+						// Calculate the index of the next game to remove
+						egi := toRemove[tri]
+
+						// For each client, check if it is dead. If it is dead, send a drop command (just in case) to the dead client
+						// Also send a drop command to the other client. If its dead, it doesnt matter, but if it is alive it receives an
+						// appropriate message
+						for ci := 1; ci >= 0; ci-- {
+							if !gamePipelines[pli][egi].Client[ci].IsAlive() {
+								log.Printf("Client [%s] in game [%d] dropped connection", gamePipelines[pli][egi].Client[ci].ID, gamePipelines[pli][egi].ID)
+
+								gamePipelines[pli][egi].Client[ci].Drop(templates.Information{Code: e.Drop, Message: ""})
+								gamePipelines[pli][egi].Client[1-ci].Drop(templates.Information{Code: e.OponentDroppedConnection, Message: ""})
+							}
+						}
+
+						gamePipelines[pli] = append(gamePipelines[pli][:egi], gamePipelines[pli][egi+1:]...)
+					}
+
+					time.Sleep(gameTick)
 				} else {
 					time.Sleep(idleTick)
 				}
@@ -58,7 +80,7 @@ func InitGameHost() {
 	}
 }
 
-// AddGame will add a pointer to a game object to the least populated game pipeline
+// AddGame adds a Game (pointer) to the gamehost queue, so that it can start forwarding updates between hosts
 func AddGame(game *Game) {
 	lowestCount := math.MaxInt64
 	nextPipeIndex := 0
