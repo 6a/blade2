@@ -1,4 +1,4 @@
-package matchmaking
+package server
 
 import (
 	"github.com/0110101001110011/blade2/src/game"

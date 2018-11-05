@@ -12,8 +12,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/0110101001110011/blade2/src/matchmaking"
-
+	"github.com/0110101001110011/blade2/src/server"
 	"github.com/gorilla/websocket"
 )
 
@@ -25,7 +24,7 @@ func connect(w http.ResponseWriter, r *http.Request) {
 		log.Print("upgrade:", err)
 		return
 	}
-	matchmaking.JoinQueue(c)
+	server.JoinQueue(c)
 }
 
 func main() {
@@ -43,8 +42,8 @@ func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
 
 	// Spin up the various async server features
-	matchmaking.InitMatchMakingQueue()
-	matchmaking.InitGameHost()
+	server.InitMatchMakingQueue()
+	server.InitGameHost()
 
 	// Start serving the websocket - Log and exit on error
 	log.Fatal(http.ListenAndServe(*addr, nil))

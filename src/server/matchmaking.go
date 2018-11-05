@@ -1,4 +1,4 @@
-package matchmaking
+package server
 
 import (
 	"fmt"
