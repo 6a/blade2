@@ -1,7 +1,6 @@
 package server
 
 import (
-	"github.com/0110101001110011/blade2/src/game"
 	"github.com/0110101001110011/blade2/src/templates"
 )
 
@@ -15,7 +14,7 @@ type Game struct {
 
 // CreateGame creates a new Game object using two Client objects
 func CreateGame(c1 *Client, c2 *Client) Game {
-	state := game.GenerateCards()
+	state := GenerateCards()
 	game := Game{nextGameID, [2]*Client{c1, c2}}
 	c1.sendMessage(templates.MakeJSON(state))
 	c2.sendMessage(templates.MakeJSON(state))
