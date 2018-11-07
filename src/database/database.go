@@ -10,7 +10,7 @@ const databasePath = "../../db/"
 
 // Note: https://www.tutorialspoint.com/sqlite/sqlite_indexed_by.htm
 var schemas = [3]string{
-	`CREATE TABLE IF NOT EXISTS authentication (
+	`CREATE TABLE IF NOT EXISTS player (
 	player_id varchar(64) NOT NULL,
 	player_name varchar(32) NOT NULL UNIQUE,
 	password_hash varchar(128) NOT NULL,
@@ -18,7 +18,7 @@ var schemas = [3]string{
 	token_expiry INT(32) NOT NULL DEFAULT '0',
 	PRIMARY KEY (player_id)
 );
-CREATE INDEX IF NOT EXISTS player_name_idx ON authentication (player_name);`,
+CREATE INDEX IF NOT EXISTS player_name_idx ON player (player_name);`,
 	`CREATE TABLE IF NOT EXISTS rating (
 	player_id varchar(64) NOT NULL,
 	elo INT(16) NOT NULL DEFAULT '1200',
