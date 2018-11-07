@@ -12,6 +12,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/0110101001110011/blade2/src/database"
 	"github.com/0110101001110011/blade2/src/server"
 	"github.com/gorilla/websocket"
 )
@@ -40,6 +41,9 @@ func main() {
 
 	// Seed the random generator
 	rand.Seed(time.Now().UTC().UnixNano())
+
+	// Initialize the database
+	db.Initialize("blade2_prod.db")
 
 	// Spin up the various async server pipelines
 	server.InitMatchMakingQueue()
