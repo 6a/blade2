@@ -3,7 +3,7 @@ package templates
 import (
 	"encoding/json"
 
-	"github.com/0110101001110011/blade2/src/e"
+	"github.com/0110101001110011/blade2/src/enums"
 )
 
 // GenericError is a prepackaged binary JSON used for unhandled error output

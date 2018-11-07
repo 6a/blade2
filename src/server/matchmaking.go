@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/0110101001110011/blade2/src/e"
+	"github.com/0110101001110011/blade2/src/enums"
 	"github.com/0110101001110011/blade2/src/templates"
 	"github.com/gorilla/websocket"
 )
