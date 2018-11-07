@@ -13,17 +13,23 @@ var schemas = [3]string{
 	`CREATE TABLE IF NOT EXISTS player (
 	player_id varchar(64) NOT NULL,
 	player_name varchar(32) NOT NULL UNIQUE,
+	email varchar(64) NOT NULL UNIQUE,
 	password_hash varchar(128) NOT NULL,
 	token varchar(64) NOT NULL,
 	token_expiry INT(32) NOT NULL DEFAULT '0',
 	PRIMARY KEY (player_id)
 );
-CREATE INDEX IF NOT EXISTS player_name_idx ON player (player_name);`,
+CREATE INDEX player_name_idx ON player (player_name);
+CREATE INDEX email_idx ON player (email);`,
+
 	`CREATE TABLE IF NOT EXISTS rating (
 	player_id varchar(64) NOT NULL,
 	elo INT(16) NOT NULL DEFAULT '1200',
+	wins INT(16) NOT NULL DEFAULT '0',
+	losses INT(16) NOT NULL DEFAULT '0',
 	PRIMARY KEY (player_id)
 );`,
+
 	`CREATE TABLE IF NOT EXISTS game (
 	game_id INT(64) NOT NULL AUTO_INCREMENT DEFAULT '0',
 	player_id_1 varchar(64) NOT NULL,
@@ -35,9 +41,9 @@ CREATE INDEX IF NOT EXISTS player_name_idx ON player (player_name);`,
 	actions varchar(256) NOT NULL,
 	PRIMARY KEY (match_id)
 );
-CREATE INDEX IF NOT EXISTS player_id_1_idx ON game (player_id_1);
-CREATE INDEX IF NOT EXISTS player_id_2_idx ON game (player_id_2);
-CREATE INDEX IF NOT EXISTS game_end_time_idx ON game (game_end_time);`}
+CREATE INDEX player_id_1_idx ON game (player_id_1);
+CREATE INDEX player_id_2_idx ON game (player_id_2);
+CREATE INDEX game_end_time_idx ON game (game_end_time);`}
 
 var sqldb = ""
 
