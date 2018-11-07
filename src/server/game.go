@@ -8,31 +8,37 @@ var nextGameID uint64
 
 // Game is a container for a pair of clients and the associated gamestate
 type Game struct {
-	ID     uint64
-	Client [2]*Client
+	ID         uint64
+	Client     [2]*Client
+	StartState Cards
+	History    []templates.StateUpdate
 }
 
 // CreateGame creates a new Game object using two Client objects
 func CreateGame(c1 *Client, c2 *Client) Game {
 	state := GenerateCards()
-	game := Game{nextGameID, [2]*Client{c1, c2}}
+	game := Game{nextGameID, [2]*Client{c1, c2}, state, nil}
 	c1.sendMessage(templates.MakeJSON(state))
 	c2.sendMessage(templates.MakeJSON(state))
 	nextGameID++
 	return game
 }
 
-// RelayUpdates relays any updates from a client to the other client
+// RelayUpdates relays updates between clients, and ends the game if an endgame condition is detected
 func (g *Game) RelayUpdates() {
-	if len(g.Client[0].Updates) > 0 {
-		update := g.Client[0].Updates[0]
-		g.Client[0].Updates = g.Client[0].Updates[1:]
-		g.Client[1].sendMessage(templates.MakeJSON(update))
+	for clientIndex := range g.Client {
+		if len(g.Client[clientIndex].Updates) > 0 {
+			update := g.Client[clientIndex].Updates[0]
+			g.Client[clientIndex].Updates = g.Client[clientIndex].Updates[1:]
+			g.Client[1-clientIndex].sendMessage(templates.MakeJSON(update))
+			g.History = append(g.History, update)
+			if update.NextTurn == -1 {
+				g.finish()
+			}
+		}
 	}
+}
 
-	if len(g.Client[1].Updates) > 0 {
-		update := g.Client[1].Updates[0]
-		g.Client[1].Updates = g.Client[1].Updates[1:]
-		g.Client[0].sendMessage(templates.MakeJSON(update))
-	}
+func (g *Game) finish() {
+	// TODO implement logic to sort history and dump to DB
 }

@@ -24,8 +24,9 @@ type Delta struct {
 
 // StateUpdate represents all the changes (delta) made during a players turn
 type StateUpdate struct {
-	TurnChanged bool
-	Deltas      []Delta
+	TurnNumber int
+	NextTurn   int // 0 or 1, and -1 for game ending
+	Deltas     []Delta
 }
 
 // MakeJSON Packages struct as as binary JSON
