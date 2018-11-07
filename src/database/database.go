@@ -8,16 +8,20 @@ import (
 
 const databasePath = "../../db/"
 
+// Note: https://www.tutorialspoint.com/sqlite/sqlite_indexed_by.htm
 var schemas = [3]string{
 	`CREATE TABLE IF NOT EXISTS authentication (
 	player_id varchar(64) NOT NULL,
+	player_name varchar(32) NOT NULL UNIQUE,
+	password_hash varchar(128) NOT NULL,
 	token varchar(64) NOT NULL,
-	expires INT(32) NOT NULL DEFAULT '0',
+	token_expiry INT(32) NOT NULL DEFAULT '0',
 	PRIMARY KEY (player_id)
-);`,
-	`CREATE TABLE IF NOT EXISTS ranking (
+);
+CREATE INDEX IF NOT EXISTS player_name_idx ON authentication (player_name);`,
+	`CREATE TABLE IF NOT EXISTS rating (
 	player_id varchar(64) NOT NULL,
-	elo INT(14) NOT NULL DEFAULT '0',
+	elo INT(16) NOT NULL DEFAULT '1200',
 	PRIMARY KEY (player_id)
 );`,
 	`CREATE TABLE IF NOT EXISTS game (
@@ -31,9 +35,9 @@ var schemas = [3]string{
 	actions varchar(256) NOT NULL,
 	PRIMARY KEY (match_id)
 );
-CREATE INDEX player_id_1_idx ON game (player_id_1);
-CREATE INDEX player_id_2_idx ON game (player_id_2);
-CREATE INDEX game_end_time_idx ON game (game_end_time);`}
+CREATE INDEX IF NOT EXISTS player_id_1_idx ON game (player_id_1);
+CREATE INDEX IF NOT EXISTS player_id_2_idx ON game (player_id_2);
+CREATE INDEX IF NOT EXISTS game_end_time_idx ON game (game_end_time);`}
 
 var sqldb = ""
 
@@ -49,11 +53,21 @@ func Initialize(database string) {
 
 	defer conn.Close()
 
+	err := conn.Begin()
+	if err != nil {
+		log.Fatalf("Error starting transaction: [%s]", err)
+	}
+
 	for _, command := range schemas {
 		err = conn.Exec(command)
 		if err != nil {
 			log.Printf("Could not create the a table using the following command: [%s]", command)
 			log.Fatalf("Error message: [%s]", err)
 		}
+	}
+
+	err := conn.Commit()
+	if err != nil {
+		log.Fatalf("Error committing transaction: [%s]", err)
 	}
 }
