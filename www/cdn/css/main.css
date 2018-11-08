@@ -1,15 +1,18 @@
 :root {
     --dark-bg: #010e23;
-    --select-0: #289251;
-    --select-1: #357abb;
-    --select-2: #c25ca3;
-    --select-3: #e9b84d;
+    --light-bg: #fdfdfd;
+    --title: rgb(72, 139, 202);
+    --table-text-header: rgb(182, 182, 182);
+    --color-asc: rgb(50, 216, 125);
+    --color-des: rgb(96, 186, 221);
 }
 
 
 html {
-    background-color: var(--dark-bg);
+    background-color: var(--light-bg);
     height: 100%;
+    font-family: "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", メイリオ, Meiryo, 游ゴシック, 游ゴシック体, YuGothic, "Yu Gothic", "ＭＳ ゴシック", "MS Gothic", HiraKakuProN-W3, TakaoExゴシック, TakaoExGothic, MotoyaLCedar, "Droid Sans Japanese", sans-serif;
+
 }
 
 body {
@@ -47,11 +50,77 @@ body {
     max-width: 1200px;
     width: 80%;
     height: 80%;
-    background-color: rgb(236, 236, 236);
+    background-color: rgb(50, 54, 57);
+    border: 1px solid rgb(39, 39, 44);
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.body-banner {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    width: 100%;
+}
+
+.body-banner-sub {
+    width: 50%;
+    height: 49px;
+    
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.body-banner-filter-special {
+    background-color: rgb(32, 33, 36);
+}
+
+.body-banner-filter {
+    width: calc(100% - 24px);
+    height: calc(100% - 24px);
+    box-sizing: border-box;
+    padding: 1px 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 1000px;
+    border: none;
+    caret-color: white;
+    color: var(--table-text-header);
+}
+
+.body-banner-filter:focus {
+    outline: none;
+    border: 1px solid rgb(78, 78, 78);
+    margin-left: -2px;
+}
+
+.body-banner-opt {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(32, 33, 36);
+    cursor: pointer;
+    color: var(--table-text-header);
+}
+
+.body-banner-opt:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.select-active {
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+    background-color: rgb(50, 54, 57);
+    cursor: default;
+}
+
+.select-active:hover {
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .body-inner-shadow-overlay {
@@ -60,48 +129,80 @@ body {
     box-shadow:         inset 0 0 5px #000;
 }
 
-.col-left {
-    width: 30%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.select-opt {
-    width: 100%;
-    height: 25%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.sel-0 {background-color: var(--select-0);}
-.sel-1 {background-color: var(--select-1);}
-.sel-2 {background-color: var(--select-2);}
-.sel-3 {background-color: var(--select-3);}
-
-.col-right {
-    width: 70%;
-    height: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-}
-
 .body-title {
     font-size: 50px;
-    color: white;
+    color: var(--title);
 }
 
 .body-info {
-    color: white;
+    color: var(--title);
     padding: 20px;
+}
+
+.body-content-entry-top-pad {
+    height: 50px;
+}
+
+.body-content {
+    height: calc(100% - 50px);
+    overflow-y: auto;
+    width: 100%;
+    position: relative;
+    display: none;
+}
+
+.content-active {
+    display: block; 
+}
+
+.body-content-header {
+    width: 100%;
+    padding: 0 2%;
+    box-sizing: border-box;
+    height: 40px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgb(50, 54, 57);
+    border-bottom: 1px solid rgb(39, 39, 44);
+    color: var(--table-text-header);
+    cursor: pointer;
+    position: sticky;
+    right: 0;
+    left: 0;
+    top: 0;
+}
+
+.text-active-highlight-asc {
+    color: var(--color-asc);
+}
+
+.text-active-highlight-des {
+    color: var(--color-des);
+}
+
+
+.body-content-entry {
+    width: 96%;
+    margin: 10px auto;
+    height: 8%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgb(32, 33, 36);
+    color: var(--table-text-header);
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.body-content-item {
+    width: calc((100% / 13) * 2);
+    text-align: center;
+    overflow: hidden;
+}
+
+.body-content-id-field {
+    width: calc((100% / 13));
 }
 
 .auth-overlay {

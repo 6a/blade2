@@ -6,7 +6,6 @@
     <meta charset="utf-8">
 
     <title>Blade II Rankings</title>
-    <meta name="description" content="The HTML5 Herald">
     <meta name="js" content="Blade II Rankings">
 
     <link rel="stylesheet" href="cdn/css/main.css">
@@ -42,22 +41,309 @@
             Blade II Rankings
         </h2>
         <div class="body-inner">
-            <div class="col-left">
-                <div class="select-opt sel-0">
-                    ELO Ranking
+            <div class="body-banner">
+                <div class="body-banner-sub">
+                    <div class="body-banner-opt noselect">
+                        ELO Ranking
+                    </div>
+                    <div class="body-banner-opt noselect">
+                        Your Games
+                    </div>
+                    <div class="body-banner-opt select-active noselect">
+                        Live Games
+                    </div>
+                    <div class="body-banner-opt noselect">
+                        Profile
+                    </div>
                 </div>
-                <div class="select-opt sel-1">
-                    Your Games
-                </div>
-                <div class="select-opt sel-2">
-                    Live Games
-                </div>
-                <div class="select-opt sel-3">
-                    Profile
+                <div class="body-banner-sub body-banner-filter-special">
+                    <input class="body-banner-filter" type="text" placeholder="filter results by name or ID">
                 </div>
             </div>
-            <div class="col-right">
-                RIGHT
+            <div class="body-content" id="dynamic-content-elo">
+                <div class="body-content-header noselect">
+                    <div class="body-content-item body-content-id-field text-active-highlight-asc">#</div>
+                    <div class="body-content-item">Name</div>
+                    <div class="body-content-item">ELO Rating</div>
+                    <div class="body-content-item">Wins</div>
+                    <div class="body-content-item">Losses</div>
+                    <div class="body-content-item">Draws</div>
+                    <div class="body-content-item">Win Ratio</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-asc">1</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445</div>
+                    <div class="body-content-item">56</div>
+                    <div class="body-content-item">43</div>
+                    <div class="body-content-item">2</div>
+                    <div class="body-content-item">1.3</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-asc">1</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445</div>
+                    <div class="body-content-item">56</div>
+                    <div class="body-content-item">43</div>
+                    <div class="body-content-item">2</div>
+                    <div class="body-content-item">1.3</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-asc">1</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445</div>
+                    <div class="body-content-item">56</div>
+                    <div class="body-content-item">43</div>
+                    <div class="body-content-item">2</div>
+                    <div class="body-content-item">1.3</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-asc">1</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445</div>
+                    <div class="body-content-item">56</div>
+                    <div class="body-content-item">43</div>
+                    <div class="body-content-item">2</div>
+                    <div class="body-content-item">1.3</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-asc">1</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445</div>
+                    <div class="body-content-item">56</div>
+                    <div class="body-content-item">43</div>
+                    <div class="body-content-item">2</div>
+                    <div class="body-content-item">1.3</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-asc">1</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445</div>
+                    <div class="body-content-item">56</div>
+                    <div class="body-content-item">43</div>
+                    <div class="body-content-item">2</div>
+                    <div class="body-content-item">1.3</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-asc">1</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445</div>
+                    <div class="body-content-item">56</div>
+                    <div class="body-content-item">43</div>
+                    <div class="body-content-item">2</div>
+                    <div class="body-content-item">1.3</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-asc">1</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445</div>
+                    <div class="body-content-item">56</div>
+                    <div class="body-content-item">43</div>
+                    <div class="body-content-item">2</div>
+                    <div class="body-content-item">1.3</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-asc">1</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445</div>
+                    <div class="body-content-item">56</div>
+                    <div class="body-content-item">43</div>
+                    <div class="body-content-item">2</div>
+                    <div class="body-content-item">1.3</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-asc">1</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445</div>
+                    <div class="body-content-item">56</div>
+                    <div class="body-content-item">43</div>
+                    <div class="body-content-item">2</div>
+                    <div class="body-content-item">1.3</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-asc">1</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445</div>
+                    <div class="body-content-item">56</div>
+                    <div class="body-content-item">43</div>
+                    <div class="body-content-item">2</div>
+                    <div class="body-content-item">1.3</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-asc">1</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445</div>
+                    <div class="body-content-item">56</div>
+                    <div class="body-content-item">43</div>
+                    <div class="body-content-item">2</div>
+                    <div class="body-content-item">1.3</div>
+                </div>
+            </div>
+            <div class="body-content" id="dynamic-content-yourgames">
+                <div class="body-content-header noselect">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">#</div>
+                    <div class="body-content-item">Game ID</div>
+                    <div class="body-content-item">Winner</div>
+                    <div class="body-content-item">ELO (Change)</div>
+                    <div class="body-content-item">Loser</div>
+                    <div class="body-content-item">ELO (Change)</div>
+                    <div class="body-content-item">Date</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445 (+24)</div>
+                    <div class="body-content-item">anonymous</div>
+                    <div class="body-content-item">2440 (-27)</div>
+                    <div class="body-content-item">11:45 04/12/1991</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2421 (+24)</div>
+                    <div class="body-content-item">anonymous</div>
+                    <div class="body-content-item">2467 (-27)</div>
+                    <div class="body-content-item">11:22 04/12/1991</div>
+                </div>
+            </div>
+            <div class="body-content content-active" id="dynamic-content-livegames">
+                <div class="body-content-header noselect">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">#</div>
+                    <div class="body-content-item">Game ID</div>
+                    <div class="body-content-item">Winner</div>
+                    <div class="body-content-item">ELO (Change)</div>
+                    <div class="body-content-item">Loser</div>
+                    <div class="body-content-item">ELO (Change)</div>
+                    <div class="body-content-item">Date</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445 (+24)</div>
+                    <div class="body-content-item">anonymous</div>
+                    <div class="body-content-item">2440 (-27)</div>
+                    <div class="body-content-item">11:45 04/12/1991</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2421 (+24)</div>
+                    <div class="body-content-item">anonymous</div>
+                    <div class="body-content-item">2467 (-27)</div>
+                    <div class="body-content-item">11:22 04/12/1991</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445 (+24)</div>
+                    <div class="body-content-item">anonymous</div>
+                    <div class="body-content-item">2440 (-27)</div>
+                    <div class="body-content-item">11:45 04/12/1991</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2421 (+24)</div>
+                    <div class="body-content-item">anonymous</div>
+                    <div class="body-content-item">2467 (-27)</div>
+                    <div class="body-content-item">11:22 04/12/1991</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445 (+24)</div>
+                    <div class="body-content-item">anonymous</div>
+                    <div class="body-content-item">2440 (-27)</div>
+                    <div class="body-content-item">11:45 04/12/1991</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2421 (+24)</div>
+                    <div class="body-content-item">anonymous</div>
+                    <div class="body-content-item">2467 (-27)</div>
+                    <div class="body-content-item">11:22 04/12/1991</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445 (+24)</div>
+                    <div class="body-content-item">anonymous</div>
+                    <div class="body-content-item">2440 (-27)</div>
+                    <div class="body-content-item">11:45 04/12/1991</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2421 (+24)</div>
+                    <div class="body-content-item">anonymous</div>
+                    <div class="body-content-item">2467 (-27)</div>
+                    <div class="body-content-item">11:22 04/12/1991</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445 (+24)</div>
+                    <div class="body-content-item">anonymous</div>
+                    <div class="body-content-item">2440 (-27)</div>
+                    <div class="body-content-item">11:45 04/12/1991</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2421 (+24)</div>
+                    <div class="body-content-item">anonymous</div>
+                    <div class="body-content-item">2467 (-27)</div>
+                    <div class="body-content-item">11:22 04/12/1991</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445 (+24)</div>
+                    <div class="body-content-item">anonymous</div>
+                    <div class="body-content-item">2440 (-27)</div>
+                    <div class="body-content-item">11:45 04/12/1991</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2421 (+24)</div>
+                    <div class="body-content-item">anonymous</div>
+                    <div class="body-content-item">2467 (-27)</div>
+                    <div class="body-content-item">11:22 04/12/1991</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445 (+24)</div>
+                    <div class="body-content-item">anonymous</div>
+                    <div class="body-content-item">2440 (-27)</div>
+                    <div class="body-content-item">11:45 04/12/1991</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2421 (+24)</div>
+                    <div class="body-content-item">anonymous</div>
+                    <div class="body-content-item">2467 (-27)</div>
+                    <div class="body-content-item">11:22 04/12/1991</div>
+                </div>
             </div>
         </div>
         <div class="body-info">
