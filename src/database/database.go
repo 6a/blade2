@@ -27,6 +27,7 @@ CREATE INDEX email_idx ON player (email);`,
 	elo INT(16) NOT NULL DEFAULT '1200',
 	wins INT(16) NOT NULL DEFAULT '0',
 	losses INT(16) NOT NULL DEFAULT '0',
+	draws INT(16) NOT NULL DEFAULT '0',
 	PRIMARY KEY (player_id)
 );`,
 
