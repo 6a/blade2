@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Blade II Rankings</title>
+    <title>Blade II ELO Ratings</title>
     <meta name="js" content="Blade II Rankings">
 
     <link rel="stylesheet" href="cdn/css/main.css">
@@ -38,37 +38,37 @@
     </div> -->
     <div class="body-outer">
         <h2 class="body-title">
-            Blade II Rankings
+            Blade II ELO Ratings
         </h2>
         <div class="body-inner">
             <div class="body-banner">
                 <div class="body-banner-sub">
+                    <div class="body-banner-opt noselect select-active">
+                        Top Ratings
+                    </div>
                     <div class="body-banner-opt noselect">
-                        ELO Ranking
+                        Live Games
                     </div>
                     <div class="body-banner-opt noselect">
                         Your Games
                     </div>
-                    <div class="body-banner-opt select-active noselect">
-                        Live Games
-                    </div>
                     <div class="body-banner-opt noselect">
-                        Profile
+                        Your Profile
                     </div>
                 </div>
                 <div class="body-banner-sub body-banner-filter-special">
-                    <input class="body-banner-filter" type="text" placeholder="filter results by name or ID">
+                    <input class="body-banner-filter" id="filter" type="text" placeholder="filter results">
                 </div>
             </div>
-            <div class="body-content" id="dynamic-content-elo">
+            <div class="body-content content-active" id="dynamic-content-elo">
                 <div class="body-content-header noselect">
-                    <div class="body-content-item body-content-id-field text-active-highlight-asc">#</div>
-                    <div class="body-content-item">Name</div>
-                    <div class="body-content-item">ELO Rating</div>
-                    <div class="body-content-item">Wins</div>
-                    <div class="body-content-item">Losses</div>
-                    <div class="body-content-item">Draws</div>
-                    <div class="body-content-item">Win Ratio</div>
+                    <div class="body-content-item body-content-item-header body-content-id-field text-active-highlight-asc">#</div>
+                    <div class="body-content-item body-content-item-header">Name</div>
+                    <div class="body-content-item body-content-item-header">ELO Rating</div>
+                    <div class="body-content-item body-content-item-header">Wins</div>
+                    <div class="body-content-item body-content-item-header">Losses</div>
+                    <div class="body-content-item body-content-item-header">Draws</div>
+                    <div class="body-content-item body-content-item-header">Win Ratio</div>
                 </div>
                 <div class="body-content-entry">
                     <div class="body-content-item body-content-id-field text-active-highlight-asc">1</div>
@@ -178,16 +178,37 @@
                     <div class="body-content-item">2</div>
                     <div class="body-content-item">1.3</div>
                 </div>
+            </div>
+            <div class="body-content" id="dynamic-content-livegames">
+                <div class="body-content-header noselect">
+                    <div class="body-content-item body-content-item-header no-interaction body-content-id-field text-active-highlight-des">#</div>
+                    <div class="body-content-item body-content-item-header no-interaction">Game ID</div>
+                    <div class="body-content-item body-content-item-header no-interaction">Winner</div>
+                    <div class="body-content-item body-content-item-header no-interaction">ELO (Change)</div>
+                    <div class="body-content-item body-content-item-header no-interaction">Loser</div>
+                    <div class="body-content-item body-content-item-header no-interaction">ELO (Change)</div>
+                    <div class="body-content-item body-content-item-header no-interaction">Date</div>
+                </div>
+                <div class="body-content-entry">
+                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445 (+24)</div>
+                    <div class="body-content-item">anonymous</div>
+                    <div class="body-content-item">2440 (-27)</div>
+                    <div class="body-content-item">11:45 04/12/1991</div>
+                </div>
+
             </div>
             <div class="body-content" id="dynamic-content-yourgames">
                 <div class="body-content-header noselect">
-                    <div class="body-content-item body-content-id-field text-active-highlight-des">#</div>
-                    <div class="body-content-item">Game ID</div>
-                    <div class="body-content-item">Winner</div>
-                    <div class="body-content-item">ELO (Change)</div>
-                    <div class="body-content-item">Loser</div>
-                    <div class="body-content-item">ELO (Change)</div>
-                    <div class="body-content-item">Date</div>
+                    <div class="body-content-item body-content-item-header body-content-id-field text-active-highlight-des">#</div>
+                    <div class="body-content-item body-content-item-header">Game ID</div>
+                    <div class="body-content-item body-content-item-header">Winner</div>
+                    <div class="body-content-item body-content-item-header">ELO (Change)</div>
+                    <div class="body-content-item body-content-item-header">Loser</div>
+                    <div class="body-content-item body-content-item-header">ELO (Change)</div>
+                    <div class="body-content-item body-content-item-header">Date</div>
                 </div>
                 <div class="body-content-entry">
                     <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
@@ -208,141 +229,10 @@
                     <div class="body-content-item">11:22 04/12/1991</div>
                 </div>
             </div>
-            <div class="body-content content-active" id="dynamic-content-livegames">
-                <div class="body-content-header noselect">
-                    <div class="body-content-item body-content-id-field text-active-highlight-des">#</div>
-                    <div class="body-content-item">Game ID</div>
-                    <div class="body-content-item">Winner</div>
-                    <div class="body-content-item">ELO (Change)</div>
-                    <div class="body-content-item">Loser</div>
-                    <div class="body-content-item">ELO (Change)</div>
-                    <div class="body-content-item">Date</div>
-                </div>
-                <div class="body-content-entry">
-                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
-                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
-                    <div class="body-content-item">james</div>
-                    <div class="body-content-item">2445 (+24)</div>
-                    <div class="body-content-item">anonymous</div>
-                    <div class="body-content-item">2440 (-27)</div>
-                    <div class="body-content-item">11:45 04/12/1991</div>
-                </div>
-                <div class="body-content-entry">
-                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
-                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
-                    <div class="body-content-item">james</div>
-                    <div class="body-content-item">2421 (+24)</div>
-                    <div class="body-content-item">anonymous</div>
-                    <div class="body-content-item">2467 (-27)</div>
-                    <div class="body-content-item">11:22 04/12/1991</div>
-                </div>
-                <div class="body-content-entry">
-                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
-                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
-                    <div class="body-content-item">james</div>
-                    <div class="body-content-item">2445 (+24)</div>
-                    <div class="body-content-item">anonymous</div>
-                    <div class="body-content-item">2440 (-27)</div>
-                    <div class="body-content-item">11:45 04/12/1991</div>
-                </div>
-                <div class="body-content-entry">
-                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
-                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
-                    <div class="body-content-item">james</div>
-                    <div class="body-content-item">2421 (+24)</div>
-                    <div class="body-content-item">anonymous</div>
-                    <div class="body-content-item">2467 (-27)</div>
-                    <div class="body-content-item">11:22 04/12/1991</div>
-                </div>
-                <div class="body-content-entry">
-                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
-                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
-                    <div class="body-content-item">james</div>
-                    <div class="body-content-item">2445 (+24)</div>
-                    <div class="body-content-item">anonymous</div>
-                    <div class="body-content-item">2440 (-27)</div>
-                    <div class="body-content-item">11:45 04/12/1991</div>
-                </div>
-                <div class="body-content-entry">
-                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
-                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
-                    <div class="body-content-item">james</div>
-                    <div class="body-content-item">2421 (+24)</div>
-                    <div class="body-content-item">anonymous</div>
-                    <div class="body-content-item">2467 (-27)</div>
-                    <div class="body-content-item">11:22 04/12/1991</div>
-                </div>
-                <div class="body-content-entry">
-                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
-                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
-                    <div class="body-content-item">james</div>
-                    <div class="body-content-item">2445 (+24)</div>
-                    <div class="body-content-item">anonymous</div>
-                    <div class="body-content-item">2440 (-27)</div>
-                    <div class="body-content-item">11:45 04/12/1991</div>
-                </div>
-                <div class="body-content-entry">
-                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
-                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
-                    <div class="body-content-item">james</div>
-                    <div class="body-content-item">2421 (+24)</div>
-                    <div class="body-content-item">anonymous</div>
-                    <div class="body-content-item">2467 (-27)</div>
-                    <div class="body-content-item">11:22 04/12/1991</div>
-                </div>
-                <div class="body-content-entry">
-                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
-                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
-                    <div class="body-content-item">james</div>
-                    <div class="body-content-item">2445 (+24)</div>
-                    <div class="body-content-item">anonymous</div>
-                    <div class="body-content-item">2440 (-27)</div>
-                    <div class="body-content-item">11:45 04/12/1991</div>
-                </div>
-                <div class="body-content-entry">
-                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
-                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
-                    <div class="body-content-item">james</div>
-                    <div class="body-content-item">2421 (+24)</div>
-                    <div class="body-content-item">anonymous</div>
-                    <div class="body-content-item">2467 (-27)</div>
-                    <div class="body-content-item">11:22 04/12/1991</div>
-                </div>
-                <div class="body-content-entry">
-                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
-                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
-                    <div class="body-content-item">james</div>
-                    <div class="body-content-item">2445 (+24)</div>
-                    <div class="body-content-item">anonymous</div>
-                    <div class="body-content-item">2440 (-27)</div>
-                    <div class="body-content-item">11:45 04/12/1991</div>
-                </div>
-                <div class="body-content-entry">
-                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
-                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
-                    <div class="body-content-item">james</div>
-                    <div class="body-content-item">2421 (+24)</div>
-                    <div class="body-content-item">anonymous</div>
-                    <div class="body-content-item">2467 (-27)</div>
-                    <div class="body-content-item">11:22 04/12/1991</div>
-                </div>
-                <div class="body-content-entry">
-                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
-                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
-                    <div class="body-content-item">james</div>
-                    <div class="body-content-item">2445 (+24)</div>
-                    <div class="body-content-item">anonymous</div>
-                    <div class="body-content-item">2440 (-27)</div>
-                    <div class="body-content-item">11:45 04/12/1991</div>
-                </div>
-                <div class="body-content-entry">
-                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
-                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
-                    <div class="body-content-item">james</div>
-                    <div class="body-content-item">2421 (+24)</div>
-                    <div class="body-content-item">anonymous</div>
-                    <div class="body-content-item">2467 (-27)</div>
-                    <div class="body-content-item">11:22 04/12/1991</div>
+            <div class="body-content" id="dynamic-content-yourprofile">
+                <div class="body-content-profile-wrapper">
+                    <div class="body-content-profile-inner"></div>
+
                 </div>
             </div>
         </div>

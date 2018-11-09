@@ -23,15 +23,6 @@ body {
     position: absolute;
 }
 
-.noselect {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-     -khtml-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;     
-}
-
 .opacity-0 {
     visibility: hidden !important;
     opacity: 0 !important; 
@@ -90,12 +81,17 @@ body {
     border: none;
     caret-color: white;
     color: var(--table-text-header);
+    display: inline-block;
 }
 
 .body-banner-filter:focus {
     outline: none;
     border: 1px solid rgb(78, 78, 78);
     margin-left: -2px;
+}
+
+.display-none {
+    display: none;
 }
 
 .body-banner-opt {
@@ -107,10 +103,12 @@ body {
     background-color: rgb(32, 33, 36);
     cursor: pointer;
     color: var(--table-text-header);
+    transition: all 0.05s ease-out;
 }
 
 .body-banner-opt:hover {
     background-color: rgba(0, 0, 0, 0.1);
+    transition: all 0.05s ease-out;
 }
 
 .select-active {
@@ -132,6 +130,7 @@ body {
 .body-title {
     font-size: 50px;
     color: var(--title);
+    margin: 20px;
 }
 
 .body-info {
@@ -166,7 +165,6 @@ body {
     background-color: rgb(50, 54, 57);
     border-bottom: 1px solid rgb(39, 39, 44);
     color: var(--table-text-header);
-    cursor: pointer;
     position: sticky;
     right: 0;
     left: 0;
@@ -180,7 +178,6 @@ body {
 .text-active-highlight-des {
     color: var(--color-des);
 }
-
 
 .body-content-entry {
     width: 96%;
@@ -197,13 +194,47 @@ body {
 
 .body-content-item {
     width: calc((100% / 13) * 2);
+    height: 100%;
     text-align: center;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.body-content-item-header {
+    cursor: pointer;
+    height: 70%;
+    border-radius: 2000px;
+    margin: 2px;
+    transition: 0.15s all ease-out
+}
+
+.body-content-item-header:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: 0.15s all ease-out
 }
 
 .body-content-id-field {
     width: calc((100% / 13));
 }
+
+.body-content-profile-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.body-content-profile-inner {
+    width: calc(100% - 100px);
+    height: calc(100% - 100px);
+    border: 1px solid rgb(39, 39, 44);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Auth */
 
 .auth-overlay {
     background-color: rgba(0, 0, 0, 0.9);
@@ -264,4 +295,20 @@ body {
     font-size: 32px;
     margin: 5px;
     padding: 5px;
+}
+
+/* Overrides */
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;     
+}
+
+.no-interaction {
+    cursor: default;
+    background-color: rgba(0, 0, 0, 0);
 }
