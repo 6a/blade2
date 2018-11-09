@@ -59,13 +59,14 @@ body {
 }
 
 .body-banner-sub {
-    width: 50%;
-    height: 49px;
-    
+    height: 49px;  
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 }
+
+.width-60 { width: 60%;}
+.width-40 { width: 40%;}
 
 .body-banner-filter-special {
     background-color: rgb(32, 33, 36);
@@ -82,12 +83,20 @@ body {
     caret-color: white;
     color: var(--table-text-header);
     display: inline-block;
+    transition: background-color 0.2s ease-in-out;
 }
 
 .body-banner-filter:focus {
     outline: none;
     border: 1px solid rgb(78, 78, 78);
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: background-color 0.2s ease-in-out;
     margin-left: -2px;
+}
+
+.body-banner-filter:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: background-color 0.2s ease-in-out;
 }
 
 .display-none {
@@ -138,10 +147,6 @@ body {
     padding: 20px;
 }
 
-.body-content-entry-top-pad {
-    height: 50px;
-}
-
 .body-content {
     height: calc(100% - 50px);
     overflow-y: auto;
@@ -182,7 +187,7 @@ body {
 .body-content-entry {
     width: 96%;
     margin: 10px auto;
-    height: 8%;
+    height: 50px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -190,6 +195,12 @@ body {
     color: var(--table-text-header);
     border-radius: 5px;
     font-size: 14px;
+    overflow: hidden;
+    position: relative;
+}
+
+.decorate-on-hover:hover {
+    box-shadow: 0 0 0 1pt rgb(119, 119, 119);
 }
 
 .body-content-item {
@@ -232,6 +243,61 @@ body {
     height: calc(100% - 100px);
     border: 1px solid rgb(39, 39, 44);
     background-color: rgba(255, 255, 255, 0.05);
+}
+
+.body-content-profile-leftpanel {
+    width: 30%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.profile-sub-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.height-60 {height: 60%;}
+.height-40 {height: 40%;}
+
+.profile-pic {
+    width: calc(100% - 70px);
+    height: calc(100% - 70px);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; 
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.profile-bio {
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    text-align: center;
+    color: var(--table-text-header);
+    font-size: 15px;
+}
+
+.body-banner-filter:focus {
+    outline: none;
+    border: 1px solid rgb(78, 78, 78);
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: background-color 0.2s ease-in-out;
+    margin-left: -2px;
+}
+
+.body-banner-filter:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: background-color 0.2s ease-in-out;
+}
+
+.search-entry-link {
+    background-color: rgba(0, 0, 0, 0);
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
 }
 
 /* Auth */
@@ -310,5 +376,5 @@ body {
 
 .no-interaction {
     cursor: default;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0) !important;
 }

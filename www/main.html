@@ -42,7 +42,7 @@
         </h2>
         <div class="body-inner">
             <div class="body-banner">
-                <div class="body-banner-sub">
+                <div class="body-banner-sub width-60">
                     <div class="body-banner-opt noselect select-active">
                         Top Ratings
                     </div>
@@ -53,11 +53,14 @@
                         Your Games
                     </div>
                     <div class="body-banner-opt noselect">
+                        Player Search
+                    </div>
+                    <div class="body-banner-opt noselect">
                         Your Profile
                     </div>
                 </div>
-                <div class="body-banner-sub body-banner-filter-special">
-                    <input class="body-banner-filter" id="filter" type="text" placeholder="filter results">
+                <div class="body-banner-sub width-40 body-banner-filter-special">
+                    <input class="body-banner-filter" id="filter" type="text" placeholder="Filter results">
                 </div>
             </div>
             <div class="body-content content-active" id="dynamic-content-elo">
@@ -181,7 +184,7 @@
             </div>
             <div class="body-content" id="dynamic-content-livegames">
                 <div class="body-content-header noselect">
-                    <div class="body-content-item body-content-item-header no-interaction body-content-id-field text-active-highlight-des">#</div>
+                    <div class="body-content-item body-content-item-header no-interaction body-content-id-field">#</div>
                     <div class="body-content-item body-content-item-header no-interaction">Game ID</div>
                     <div class="body-content-item body-content-item-header no-interaction">Winner</div>
                     <div class="body-content-item body-content-item-header no-interaction">ELO (Change)</div>
@@ -190,7 +193,7 @@
                     <div class="body-content-item body-content-item-header no-interaction">Date</div>
                 </div>
                 <div class="body-content-entry">
-                    <div class="body-content-item body-content-id-field text-active-highlight-des">FFFFFFFF</div>
+                    <div class="body-content-item body-content-id-field">FFFFFFFF</div>
                     <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
                     <div class="body-content-item">james</div>
                     <div class="body-content-item">2445 (+24)</div>
@@ -198,7 +201,6 @@
                     <div class="body-content-item">2440 (-27)</div>
                     <div class="body-content-item">11:45 04/12/1991</div>
                 </div>
-
             </div>
             <div class="body-content" id="dynamic-content-yourgames">
                 <div class="body-content-header noselect">
@@ -229,10 +231,46 @@
                     <div class="body-content-item">11:22 04/12/1991</div>
                 </div>
             </div>
+            <div class="body-content" id="dynamic-content-search">
+                <div class="body-content-header noselect">
+                    <div class="body-content-item body-content-item-header no-interaction">Player ID</div>
+                    <div class="body-content-item body-content-item-header no-interaction">Name</div>
+                    <div class="body-content-item body-content-item-header no-interaction">ELO</div>
+                    <div class="body-content-item body-content-item-header no-interaction">Wins</div>
+                    <div class="body-content-item body-content-item-header no-interaction">Losses</div>
+                    <div class="body-content-item body-content-item-header no-interaction">Draws</div>
+                    <div class="body-content-item body-content-item-header no-interaction">Ratio</div>
+                </div>
+                <div class="body-content-entry decorate-on-hover">
+                    <a class="search-entry-link" href="./profiles/7FFFFFFFFFFFFFFF"></a>
+                    <div class="body-content-item">7FFFFFFFFFFFFFFF</div>
+                    <div class="body-content-item">james</div>
+                    <div class="body-content-item">2445</div>
+                    <div class="body-content-item">56</div>
+                    <div class="body-content-item">43</div>
+                    <div class="body-content-item">2</div>
+                    <div class="body-content-item">1.3</div>
+                </div>
+            </div>
             <div class="body-content" id="dynamic-content-yourprofile">
                 <div class="body-content-profile-wrapper">
-                    <div class="body-content-profile-inner"></div>
+                    <div class="body-content-profile-inner">
+                        <div class="body-content-profile-leftpanel">
+                            <div class="profile-sub-wrapper height-60" id="profile-pic">
+                                <div class="profile-pic" style="background-image: url('cdn/img/profile_default.png');"></div>
+                            </div>
+                            <div class="profile-sub-wrapper height-40" id="profile-bio">
+                                <div class="profile-bio">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="body-content-profile-rightpanel">
 
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
