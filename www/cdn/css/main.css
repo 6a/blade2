@@ -313,6 +313,7 @@ body {
     opacity: 1;
     visibility: visible;
     transition: all 0.5s linear;
+    z-index: 2;
 }
 
 .auth-box {
