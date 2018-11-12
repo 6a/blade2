@@ -6,9 +6,9 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/0110101001110011/blade2/src/enums"
-	"github.com/0110101001110011/blade2/src/templates"
-	"github.com/0110101001110011/blade2/src/tools"
+	"github.com/6a/blade2/src/enums"
+	"github.com/6a/blade2/src/templates"
+	"github.com/6a/blade2/src/tools"
 )
 
 const idleTick = 2000 * time.Millisecond

@@ -1,7 +1,7 @@
 package server
 
 import (
-	"github.com/0110101001110011/blade2/src/templates"
+	"github.com/6a/blade2/src/templates"
 )
 
 var nextGameID uint64

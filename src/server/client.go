@@ -6,8 +6,8 @@ import (
 	"log"
 	"time"
 
-	e "github.com/0110101001110011/blade2/src/enums"
-	"github.com/0110101001110011/blade2/src/templates"
+	"github.com/6a/blade2/src/enums"
+	"github.com/6a/blade2/src/templates"
 	"github.com/gorilla/websocket"
 	uuid "github.com/satori/go.uuid"
 )
