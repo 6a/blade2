@@ -243,6 +243,9 @@ body {
     height: calc(100% - 100px);
     border: 1px solid rgb(39, 39, 44);
     background-color: rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .body-content-profile-leftpanel {
@@ -251,11 +254,62 @@ body {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
+.body-content-profile-rightpanel {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.body-content-profile-rightpanel h2 {
+    width: 100%;
+    height: 14.29%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.body-content-profile-rightpanel table {
+    width: calc(100% - 100px);
+    height: calc(85.71% - 100px);
+    padding: 0;
+    box-sizing: border-box;
+    border-collapse: collapse;
+    border: 1px solid rgb(39, 39, 44);
+}
+
+.body-content-profile-rightpanel tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.body-content-profile-rightpanel td {
+    padding: 0 50px;
+    margin: 0;
+    color: var(--table-text-header);
+}
+
+.body-content-profile-rightpanel td:nth-child(1) {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgb(39, 39, 44);
+}
+
+.align-text-right {
+    text-align: right;
+}
+
 .profile-sub-wrapper {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+.flex-justify-space-between {
+    justify-content: space-between;
 }
 
 .height-60 {height: 60%;}
@@ -272,10 +326,43 @@ body {
 
 .profile-bio {
     width: calc(100% - 20px);
-    height: calc(100% - 20px);
     text-align: center;
     color: var(--table-text-header);
-    font-size: 15px;
+    font-size: 14px;
+    overflow-x: hidden;
+    resize: none;
+    padding: 0.5em;
+    background-color: unset;
+    border: none;
+    font: inherit;
+    box-sizing: border-box;
+    line-height: 100%;
+}
+
+.profile-bio-button {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: gray;
+    border: 1px solid gray;
+    margin: 10px 10px 20px 10px;
+    height: 20%;
+    width: 200px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--table-text-header);
+    border: 1px solid var(--table-text-header);
+    cursor: pointer;
+}
+
+.profile-bio-button:hover, .profile-bio-button:active {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: var(--table-text-header);
+    border: 1px solid var(--table-text-header);
+}   
+
+.profile-bio:active, .profile-bio:focus {
+    outline: 1px solid var(--table-text-header);
 }
 
 .body-banner-filter:focus {

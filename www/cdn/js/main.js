@@ -22,7 +22,7 @@ function switchWindow(index) {
         this.filter.classList.remove("display-none");
         if (this.previousWindowIndex == this.profileWindowIndex) {
             if (index == this.searchWindowIndex) {
-                this.filter.placeholder = "Search by name or player-id";
+                this.filter.placeholder = "Search by name or player ID";
                 this.filter.value = this.storedSearchValue;
             } else {
                 this.filter.placeholder = "Filter results";
@@ -35,7 +35,7 @@ function switchWindow(index) {
         } else {
             this.storedFilterValue = this.filter.value;
             if (index == this.searchWindowIndex) {
-                this.filter.placeholder = "Search by name or player-id";
+                this.filter.placeholder = "Search by name or player ID";
                 this.filter.value = this.storedSearchValue;
             }
         }
