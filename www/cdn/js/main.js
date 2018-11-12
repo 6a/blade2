@@ -1,3 +1,5 @@
+const MAX_IMG_SIZE = 1024000;
+
 function setOpacityZero(id) {
     var element = document.getElementById(id);
     element.classList.add("opacity-0");
@@ -48,6 +50,7 @@ function init() {
     this.contentWindows = document.getElementsByClassName("body-content");
     this.windowSelectButtons = document.getElementsByClassName("body-banner-opt");
     this.filter = document.getElementById("filter");
+    this.profilePicture = document.getElementById("profile-pic");
 
     this.profileWindowIndex = this.contentWindows.length - 1;
     this.searchWindowIndex = 3;
@@ -64,7 +67,24 @@ function init() {
         switchWindow(localStorage.windowIndex);
     }
 
-
+    this.profilePicture.addEventListener("click", function () {
+        var fileSelector = document.createElement('input');
+        fileSelector.setAttribute('type', 'file');
+        fileSelector.setAttribute('accept', 'image/*');
+        fileSelector.click();
+        // fileSelector.addEventListener("submit", function(e) {console.log(e);});
+        fileSelector.addEventListener("change", function (e) {
+            var fReader = new FileReader();
+            fReader.readAsDataURL(e.path[0].files[0]);
+            fReader.onloadend = function(event){
+                if (event.total > MAX_IMG_SIZE) {
+                    window.alert("Invalid image: Must be an image file, no larger than 1024Kb");
+                } else {
+                    profilePicture.style.backgroundImage = "url('" + event.target.result +"')";
+                }
+            }
+        });
+    });
 }
 
 init();
