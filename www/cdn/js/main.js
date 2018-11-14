@@ -72,16 +72,39 @@ function init() {
         fileSelector.setAttribute('type', 'file');
         fileSelector.setAttribute('accept', 'image/*');
         fileSelector.click();
-        // fileSelector.addEventListener("submit", function(e) {console.log(e);});
         fileSelector.addEventListener("change", function (e) {
-            var fReader = new FileReader();
-            fReader.readAsDataURL(e.path[0].files[0]);
-            fReader.onloadend = function(event){
-                if (event.total > MAX_IMG_SIZE) {
-                    window.alert("Invalid image: Must be an image file, no larger than 1024Kb");
-                } else {
-                    profilePicture.style.backgroundImage = "url('" + event.target.result +"')";
+            if (e.path.length && e.path[0].files && e.path[0].files.length) {
+                var image = new Image();
+                image.onload = function (e) {
+                    if ('naturalHeight' in this) {
+                        if (this.naturalHeight + this.naturalWidth === 0) {
+                            image.onerror();
+                            return;
+                        }
+                    } 
+
+                    if (this.width + this.height == 0) {
+                        image.onerror();
+                        return;
+                    }
+
+                    console.log(this.src);
+                    profilePicture.style.backgroundImage = "url('" + this.src + "')";                  
+                    console.log(profilePicture);
                 }
+
+                image.onerror = function () {
+                    window.alert("Invalid file: Must be an image file, no larger than 1024Kb");
+                    URL.revokeObjectURL(this.src);
+                }
+
+                if (e.path[0].files[0].size > MAX_IMG_SIZE) {
+                    image.onerror();
+                    return;
+                }
+
+                var url = window.URL || window.webkitURL;
+                image.src = url.createObjectURL(e.path[0].files[0]);
             }
         });
     });

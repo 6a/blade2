@@ -1,7 +1,7 @@
 :root {
-    --dark-bg: #010e23;
+    --dark-bg: #141516;
     --light-bg: #fdfdfd;
-    --title: rgb(72, 139, 202);
+    --title: rgb(235, 235, 235);
     --table-text-header: rgb(182, 182, 182);
     --color-asc: rgb(50, 216, 125);
     --color-des: rgb(96, 186, 221);
@@ -9,10 +9,9 @@
 
 
 html {
-    background-color: var(--light-bg);
+    background-color: var(--dark-bg);
     height: 100%;
-    font-family: "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", メイリオ, Meiryo, 游ゴシック, 游ゴシック体, YuGothic, "Yu Gothic", "ＭＳ ゴシック", "MS Gothic", HiraKakuProN-W3, TakaoExゴシック, TakaoExGothic, MotoyaLCedar, "Droid Sans Japanese", sans-serif;
-
+    font-family: 'Sawarabi Gothic', sans-serif;
 }
 
 body {
@@ -328,7 +327,6 @@ body {
     background-position: center; 
     border-radius: 10px;
     cursor: pointer;
-    /* box-sizing: border-box; */
 }
 
 .profile-bio {
@@ -350,7 +348,7 @@ body {
     background-color: rgba(0, 0, 0, 0.6);
     color: gray;
     margin: 10px 10px 20px 10px;
-    height: 20%;
+    height: 40px;
     width: 200px;
     border-radius: 10px;
     display: flex;
@@ -365,7 +363,7 @@ body {
     background-color: rgba(0, 0, 0, 0.4);
     color: var(--table-text-header);
     border: 1px solid var(--table-text-header);
-    
+    box-sizing: border-box;
 }   
 
 .profile-bio:active, .profile-bio:focus {
