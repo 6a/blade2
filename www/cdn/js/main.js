@@ -1,4 +1,9 @@
 const MAX_IMG_SIZE = 1024000;
+const VALID_AVATAR_TYPES = ['image/png', 'image/jpeg', 'image/gif'];
+
+function b2Kb (bytes) {
+    return bytes / 1000;
+}
 
 function setOpacityZero(id) {
     var element = document.getElementById(id);
@@ -88,17 +93,20 @@ function init() {
                         return;
                     }
 
-                    console.log(this.src);
                     profilePicture.style.backgroundImage = "url('" + this.src + "')";                  
-                    console.log(profilePicture);
                 }
 
                 image.onerror = function () {
-                    window.alert("Invalid file: Must be an image file, no larger than 1024Kb");
+                    window.alert("Invalid file: Must be a jpeg, png or gif, no larger than " + b2Kb(MAX_IMG_SIZE) + "Kb.");
                     URL.revokeObjectURL(this.src);
                 }
 
                 if (e.path[0].files[0].size > MAX_IMG_SIZE) {
+                    image.onerror();
+                    return;
+                }
+
+                if (!VALID_AVATAR_TYPES.includes(e.path[0].files[0].type)) {
                     image.onerror();
                     return;
                 }
